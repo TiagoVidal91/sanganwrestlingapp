@@ -1,23 +1,24 @@
 package com.bearAndPupperCo.sangenWrestlingApp.Entities;
 
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
-public class TagTeam {
+public class WrestlingBrand {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer tagTeamId;
+    private Long wrestlingBrandId;
 
-    private String tagTeamName;
+    private String wrestlingBrandName;
 
-    @ManyToMany(mappedBy = "wrestlerTeams")
-    List<WrestlingCard> wrestlers;
-
+    @OneToMany(mappedBy="wrestlingBrand")
+    List<Wrestler> wrestlers;
 
 }

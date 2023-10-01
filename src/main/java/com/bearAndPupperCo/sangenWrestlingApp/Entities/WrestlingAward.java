@@ -1,8 +1,10 @@
 package com.bearAndPupperCo.sangenWrestlingApp.Entities;
 
-import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
 @Entity
 @Data
 @NoArgsConstructor

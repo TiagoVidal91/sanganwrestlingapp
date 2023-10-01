@@ -1,9 +1,9 @@
 package com.bearAndPupperCo.sangenWrestlingApp.Entities;
 
-import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -18,7 +18,7 @@ public class OtherAchievement {
     private String achievementsName;
 
     @ManyToMany
-    @JoinColumn(name="wrestling_year_id")
+    @JoinTable(name = "other_achievement_wrestling_year", joinColumns = @JoinColumn(name = "other_achievements_id"), inverseJoinColumns = @JoinColumn(name = "wrestling_year_id"))
     private List<WrestlingYear> wrestlingYear;
 
     @ManyToOne

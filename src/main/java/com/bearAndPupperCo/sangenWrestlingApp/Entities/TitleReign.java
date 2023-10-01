@@ -1,8 +1,9 @@
 package com.bearAndPupperCo.sangenWrestlingApp.Entities;
 
-import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -15,23 +16,22 @@ public abstract class TitleReign {
     private Long titleReignId;
 
     @ManyToOne
-    @JoinColumn(name="wrestling_title_id")
+    @JoinColumn(name = "wrestling_title_id")
     private WrestlingTitle wrestlingTitle;
 
     @ManyToOne
-    @JoinColumn(name="wrestling_year_id")
+    @JoinColumn(name = "starting_year_id")
     private WrestlingYear startingYear;
 
     @ManyToOne
-    @JoinColumn(name="wrestling_year_id")
+    @JoinColumn(name = "losing_year_id")
     private WrestlingYear losingYear;
 
     @ManyToOne
-    @JoinColumn(name="ppv_month_id")
+    @JoinColumn(name = "starting_month_id")
     private PPVMonth startingMonth;
 
     @ManyToOne
-    @JoinColumn(name="ppv_month_id")
+    @JoinColumn(name = "losing_month_id")
     private PPVMonth losingMonth;
-
 }

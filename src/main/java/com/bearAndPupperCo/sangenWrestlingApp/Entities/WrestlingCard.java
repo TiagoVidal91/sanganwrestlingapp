@@ -1,9 +1,9 @@
 package com.bearAndPupperCo.sangenWrestlingApp.Entities;
 
-import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -26,7 +26,7 @@ public class WrestlingCard {
     @JoinColumn(name = "achievement_id")
     List<Achievements> wrestlerAchievements;
 
-    @OneToMany(mappedBy="wrestlerCard")
+    @OneToMany(mappedBy="wrestlingTitle")
     List<TitleReign> wrestlerTitleReigns;
 
 }

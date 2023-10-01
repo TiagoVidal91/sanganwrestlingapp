@@ -1,10 +1,9 @@
 package com.bearAndPupperCo.sangenWrestlingApp.Entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.PrimaryKeyJoinColumn;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -13,10 +12,22 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name = "titleReignId")
 public class SingleTitleReign extends TitleReign{
 
+    @OneToOne
+    @MapsId
+    private TitleReign titleReign;
+
+    @OneToOne
     private Wrestler wonAgainst;
 
+    @ManyToMany
+    @JoinTable(
+            name = "single_title_reign_defended_from",
+            joinColumns = @JoinColumn(name = "title_reign_id"),
+            inverseJoinColumns = @JoinColumn(name = "wrestler_id")
+    )
     private List<Wrestler> defendedFrom;
 
+    @OneToOne
     private Wrestler lostAgainst;
 
 }
