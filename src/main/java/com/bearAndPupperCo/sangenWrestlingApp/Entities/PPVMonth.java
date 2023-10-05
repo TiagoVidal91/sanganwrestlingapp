@@ -1,22 +1,25 @@
 package com.bearAndPupperCo.sangenWrestlingApp.Entities;
 
+import javax.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
-
 public class PPVMonth {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ppvMonthId;
+    private Integer ppvMonthId;
 
-    private String ppvMonthName;
+    private String ppvName;
+
+    @OneToMany(mappedBy="ppvMonth")
+    private List<WrestlingShow> wrestlingShows;
+
     @ManyToOne
     @JoinColumn(name="wrestling_year_id")
     private WrestlingYear wrestlingYear;

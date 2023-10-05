@@ -2,7 +2,6 @@ package com.bearAndPupperCo.sangenWrestlingApp.Entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 
 @Entity
@@ -34,4 +33,5 @@ public abstract class TitleReign {
     @ManyToOne
     @JoinColumn(name = "losing_month_id")
     private PPVMonth losingMonth;
+
 }

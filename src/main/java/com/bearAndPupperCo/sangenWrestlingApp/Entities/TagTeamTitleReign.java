@@ -1,16 +1,17 @@
 package com.bearAndPupperCo.sangenWrestlingApp.Entities;
 
+import javax.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.MapKeyJoinColumn;
 import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
-@PrimaryKeyJoinColumn(name = "titleReignId")
-public class TagTeamTitleReign extends TitleReign {
+@PrimaryKeyJoinColumn(name = "title_reign_id")
+public class TagTeamTitleReign extends TitleReign{
 
     @OneToOne
     @MapsId
@@ -19,8 +20,8 @@ public class TagTeamTitleReign extends TitleReign {
     @OneToOne
     private TagTeam wonAgainst;
 
-    @ElementCollection
-    @MapKeyJoinColumn(name = "tagTeamId")  // assuming TagTeam has an 'id' field
+    @ManyToMany
+    @JoinColumn(name="tag_team_id")
     private List<TagTeam> defendedFrom;
 
     @OneToOne

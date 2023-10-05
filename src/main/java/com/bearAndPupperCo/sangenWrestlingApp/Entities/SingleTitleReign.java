@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
-@PrimaryKeyJoinColumn(name = "titleReignId")
+@PrimaryKeyJoinColumn(name = "title_reign_id")
 public class SingleTitleReign extends TitleReign{
 
     @OneToOne

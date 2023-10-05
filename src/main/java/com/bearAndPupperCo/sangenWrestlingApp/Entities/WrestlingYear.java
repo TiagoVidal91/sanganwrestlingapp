@@ -1,9 +1,9 @@
 package com.bearAndPupperCo.sangenWrestlingApp.Entities;
 
+import javax.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -17,12 +17,13 @@ public class WrestlingYear {
 
     private Integer wrestlingYear;
 
-    @OneToMany(mappedBy = "wrestlingYear", cascade = CascadeType.ALL)
-    private List<PPVMonth> ppvMonthList;
-
-    /*@OneToMany(mappedBy = "startingYear", cascade = CascadeType.ALL)
-    private List<Wrestler> wrestlers;*/
+    @OneToMany(mappedBy="wrestlingYear")
+    List<PPVMonth> ppvMonthList;
 
     @ManyToMany(mappedBy = "wrestlingYear")
     private List<OtherAchievement> otherAchievementList;
+
+    @OneToMany(mappedBy = "wrestlingYear")
+    private List<WrestlingAward> wrestlingAwardList;
+
 }
