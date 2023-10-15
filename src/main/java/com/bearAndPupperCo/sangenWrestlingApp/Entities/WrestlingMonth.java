@@ -9,15 +9,15 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
-public class WrestlingMatchType {
+public class WrestlingMonth {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long wrestlingMatchTypeId;
+    private Long wrestlingMonthId;
 
-    private String matchTypeName;
+    private String wrestlingMonthName;
 
-    @OneToMany(mappedBy="wrestlingMatchType")
-    List<WrestlingMatch> wrestlingMatches;
+    @OneToMany(mappedBy = "wrestlingMonth")
+    List<WrestlingShow> wrestlingShows;
 
 }

@@ -15,14 +15,8 @@ public class WrestlingYear {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long wrestlingYearId;
 
-    private Integer wrestlingYear;
+    private String wrestlingYearName;
 
-    @OneToMany(mappedBy = "wrestlingYear", cascade = CascadeType.ALL)
-    private List<PPVMonth> ppvMonthList;
-
-    /*@OneToMany(mappedBy = "startingYear", cascade = CascadeType.ALL)
-    private List<Wrestler> wrestlers;*/
-
-    @ManyToMany(mappedBy = "wrestlingYear")
-    private List<OtherAchievement> otherAchievementList;
+    @OneToMany(mappedBy = "wrestlingYear")
+    List<WrestlingShow> wrestlingShows;
 }

@@ -14,7 +14,7 @@ public class Wrestler {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer wrestlerId;
+    private Long wrestlerId;
 
     @Column(columnDefinition = "VARCHAR(255)")
     private String wrestlerName;
@@ -22,19 +22,20 @@ public class Wrestler {
     @Column(columnDefinition = "VARCHAR(255)")
     private String inRingName;
 
-    @ManyToOne
-    @JoinColumn(name="wrestling_year_id")
-    private WrestlingYear startingYear;
+    @ElementCollection
+    @CollectionTable(name="nicknames", joinColumns=@JoinColumn(name="wrestler_Id"))
+    @Column(name="nickname")
+    private List<String> nicknames;
 
-    @Column(columnDefinition = "VARCHAR(255)")
-    private String signatureMoves;
+    @ElementCollection
+    @CollectionTable(name="signatureMoves", joinColumns=@JoinColumn(name="wrestler_Id"))
+    @Column(name="signatureMoves")
+    private List<String> signatureMoves;
 
-    @Column(columnDefinition = "VARCHAR(255)")
-    private String finishers;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "wrestling_card_id")
-    private WrestlingCard wrestlingCard;
+    @ElementCollection
+    @CollectionTable(name="finishers", joinColumns=@JoinColumn(name="wrestler_Id"))
+    @Column(name="finishers")
+    private List<String> finishers;
 
     @Column(columnDefinition = "VARCHAR(255)")
     private String wrestlerPicPath;
@@ -43,14 +44,19 @@ public class Wrestler {
     @JoinColumn(name="wrestling_brand_id")
     private WrestlingBrand wrestlingBrand;
 
-    @ManyToMany(mappedBy = "defendedFrom")
-    private List<SingleTitleReign> titleReignsDefended;
+    @ManyToMany
+    private List<WrestlingMatch> wrestlingMatchesList;
 
-    @OneToOne(mappedBy = "lostAgainst")
-    private SingleTitleReign lostTitle;
+    @ManyToMany
+    private List<WrestlingMatch> matchVictories;
 
-    @OneToOne(mappedBy = "wonAgainst")
-    private SingleTitleReign wonTitle;
+    @ManyToMany
+    private List<WrestlingMatch> matchLosses;
 
+    @ManyToMany
+    private List<WrestlingMatch> matchInterference;
+
+    @ManyToMany(mappedBy = "wrestlerList")
+    private List<WrestlingTitle> wrestlingTitleList;
 
 }

@@ -5,19 +5,17 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
-public class TagTeam {
-
+public class WrestlingWeek {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer tagTeamId;
+    private Long wrestlingWeekId;
 
-    private String tagTeamName;
+    private String wrestlingWeekName;
 
-    @ManyToMany(mappedBy = "wrestlerTeams")
-    List<WrestlingCard> wrestlers;
-
-
+    @OneToMany(mappedBy = "wrestlingWeek")
+    List<WrestlingShow> wrestlingShows;
 }

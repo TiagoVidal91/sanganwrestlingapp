@@ -1,6 +1,5 @@
 package com.bearAndPupperCo.sangenWrestlingApp.Entities;
 
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,15 +13,14 @@ public class WrestlingTitle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long wrestlingTitleId;
+    private Long wrestling_title_id;
 
     private String titleName;
 
-    private String titleType;
+    @ManyToMany
+    private List<Wrestler> wrestlerList;
 
-    private String titleSex;
-
-    @OneToMany(mappedBy="wrestlingTitle")
-    List<TitleReign> titleReigns;
+    @OneToMany(mappedBy = "wrestlingTitle")
+    private List<WrestlingMatch> wrestlingMatches;
 
 }
