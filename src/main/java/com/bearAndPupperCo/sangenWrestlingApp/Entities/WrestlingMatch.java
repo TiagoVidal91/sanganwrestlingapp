@@ -42,4 +42,7 @@ public class WrestlingMatch {
     @ManyToOne
     @JoinColumn(name="wrestling_title_id")
     private WrestlingTitle wrestlingTitle;
+
+    private Boolean isMoneyInTheBankCashIn;
+
 }
