@@ -46,7 +46,7 @@ public class Wrestler {
 
     @ManyToOne
     @JoinColumn(name="wrestling_locker_room_id")
-    private WrestlingBrand wrestlingLockerRoom;
+    private LockerRoom wrestlingLockerRoom;
 
     @ManyToMany
     private List<WrestlingMatch> wrestlingMatchesList;

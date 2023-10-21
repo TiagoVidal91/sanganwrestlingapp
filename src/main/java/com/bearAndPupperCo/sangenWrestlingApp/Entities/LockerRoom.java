@@ -20,4 +20,7 @@ public class LockerRoom {
     @OneToMany(mappedBy="wrestlingLockerRoom")
     List<Wrestler> wrestlers;
 
+    @OneToMany(mappedBy = "lockerRoom")
+    List<WrestlingTitle> wrestlingTitles;
+
 }

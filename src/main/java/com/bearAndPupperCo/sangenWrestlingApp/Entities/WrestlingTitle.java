@@ -13,7 +13,7 @@ public class WrestlingTitle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long wrestling_title_id;
+    private Long wrestlingTitleId;
 
     private String titleName;
 
@@ -22,5 +22,9 @@ public class WrestlingTitle {
 
     @OneToMany(mappedBy = "wrestlingTitle")
     private List<WrestlingMatch> wrestlingMatches;
+
+    @ManyToOne
+    @JoinColumn(name = "wrestling_locker_room_id")
+    private LockerRoom lockerRoom;
 
 }
