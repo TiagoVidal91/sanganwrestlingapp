@@ -1,8 +1,6 @@
 import {Route, Routes } from "react-router-dom";
 import React from "react";
 import AppRoutes from "./AppRoutes";
-import LandingPage from "./pages/LandingPage";
-
 
 function App() {
   return (
