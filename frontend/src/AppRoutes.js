@@ -1,5 +1,5 @@
 import LandingPage from "./pages/LandingPage";
-import ScorePage from "./pages/ScorePage";
+import StreakPage from "./pages/StreakPage";
 
 const AppRoutes = [
     {
@@ -7,8 +7,8 @@ const AppRoutes = [
         element: <LandingPage />
     },
     { 
-        path: "/score",
-        element: <ScorePage />
+        path: "/streaks",
+        element: <StreakPage />
     }
 ]
 

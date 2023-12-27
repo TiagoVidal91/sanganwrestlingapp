@@ -1,0 +1,47 @@
+[
+    {
+        "wrestlerId": 1,
+        "wrestlerName": "Adler Furcht",
+        "inRingName": "Adam Fletcher",
+        "nicknames": [
+            "The Eagle",
+            "The Lockeroom Leader"
+        ],
+        "signatureMoves": [
+            "Headshot",
+            "Falcon Arrow"
+        ],
+        "finishers": [
+            "Fallen Angel",
+            "Bullseye"
+        ],
+        "brandId": 2,
+        "lockerId": 2,
+        "numberOfWins": 0,
+        "numberOfLosses": 0,
+        "numberOfMatches": 0,
+        "wrestlingTitleList": []
+    },
+    {
+        "wrestlerId": 2,
+        "wrestlerName": "Lavrenty Vaselvold",
+        "inRingName": "Lex Valentine",
+        "nicknames": [
+            "Women Destroyer"
+        ],
+        "signatureMoves": [
+            "The B-Slap",
+            "Zig-Zag"
+        ],
+        "finishers": [
+            "French Kiss",
+            "Sweet Lullaby"
+        ],
+        "brandId": 2,
+        "lockerId": 2,
+        "numberOfWins": 0,
+        "numberOfLosses": 0,
+        "numberOfMatches": 0,
+        "wrestlingTitleList": []
+    }
+]
