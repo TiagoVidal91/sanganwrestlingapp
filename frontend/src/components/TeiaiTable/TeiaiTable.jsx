@@ -2,7 +2,8 @@ import React, {useState} from "react";
 import { Table, Pagination, } from 'react-bootstrap'; 
 import "./TeiaiTable.css"
 
-const TeiaiTable = ({tableData, tableHeaders, id}) => {
+const TeiaiTable = ({tableData, tableHeaders, id, numberPages}) => {
+    console.log(tableData);
     //TABLE HEADERS
     const tableHeader = () => {
         return (
@@ -33,7 +34,7 @@ const TeiaiTable = ({tableData, tableHeaders, id}) => {
 
     //TABLE PAGINATION
     const [activePage, setActivePage] = useState(1);
-    const [totalPages, setTotalPages] = useState(5);
+    const [totalPages, setTotalPages] = useState(numberPages);
     const tablePagination = () => { 
         let items = [];
         for (let number = 1; number <= totalPages; number++) {
