@@ -3,9 +3,10 @@ import TeiaiTable from '../components/TeiaiTable/TeiaiTable';
 import {filterData} from "../helperFunctions";
 
 const StreakPage = () => {
-    var headers= ["Name", "Brand", "Locker room", "Wins", "Loses", "Matches Total"];
-    var objectFields=  ["wrestlerName", "brandId", "lockerId", "numberOfWins", "numberOfLosses", "numberOfMatches"];
+    var headers= ["Name", "Brand", "Locker room", "Wins", "Loses", "Matches Total", "Percentage Win", "Streak"];
+    var objectFields=  ["inRingName", "brandId", "lockerId", "numberOfWins", "numberOfLosses", "numberOfMatches", "percentageOfWins", "wrestlingStreak"];
     var filteredData = filterData(data, objectFields);
+    console.log(data);
     return (
         <>
             <h1>Score!!!!</h1>

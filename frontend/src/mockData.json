@@ -20,7 +20,9 @@
         "numberOfWins": 0,
         "numberOfLosses": 0,
         "numberOfMatches": 0,
-        "wrestlingTitleList": []
+        "wrestlingStreak": 0,
+        "wrestlingTitleList": [],
+        "percentageOfWins": 0.0
     },
     {
         "wrestlerId": 2,
@@ -42,6 +44,429 @@
         "numberOfWins": 0,
         "numberOfLosses": 0,
         "numberOfMatches": 0,
-        "wrestlingTitleList": []
+        "wrestlingStreak": 0,
+        "wrestlingTitleList": [],
+        "percentageOfWins": 0.0
+    },
+    {
+        "wrestlerId": 3,
+        "wrestlerName": "Didrick",
+        "inRingName": "Lance Drake",
+        "nicknames": [
+            "The Dragon"
+        ],
+        "signatureMoves": [
+            "Dragon Sault",
+            "Dragon Blade"
+        ],
+        "finishers": [
+            "Draco Meteor",
+            "Dragon Lock"
+        ],
+        "brandId": 1,
+        "lockerId": 2,
+        "numberOfWins": 0,
+        "numberOfLosses": 0,
+        "numberOfMatches": 0,
+        "wrestlingStreak": 0,
+        "wrestlingTitleList": [],
+        "percentageOfWins": 0.0
+    },
+    {
+        "wrestlerId": 4,
+        "wrestlerName": "Renno",
+        "inRingName": "Raymound Hunter",
+        "nicknames": [
+            "The Prodigy"
+        ],
+        "signatureMoves": [
+            "Chin Adjustment",
+            "Breath Taker"
+        ],
+        "finishers": [
+            "Exclamation Point",
+            "Prodigy Combo"
+        ],
+        "brandId": 1,
+        "lockerId": 2,
+        "numberOfWins": 0,
+        "numberOfLosses": 0,
+        "numberOfMatches": 0,
+        "wrestlingStreak": 0,
+        "wrestlingTitleList": [],
+        "percentageOfWins": 0.0
+    },
+    {
+        "wrestlerId": 5,
+        "wrestlerName": "Zaire Ayomedes",
+        "inRingName": "Mangum Z",
+        "nicknames": [
+            "The Showstopper"
+        ],
+        "signatureMoves": [
+            "DM Slide",
+            "Photo Finish"
+        ],
+        "finishers": [
+            "Compact [Wrestler]",
+            "Shattered Dreams"
+        ],
+        "brandId": 2,
+        "lockerId": 2,
+        "numberOfWins": 0,
+        "numberOfLosses": 0,
+        "numberOfMatches": 0,
+        "wrestlingStreak": 0,
+        "wrestlingTitleList": [],
+        "percentageOfWins": 0.0
+    },
+    {
+        "wrestlerId": 6,
+        "wrestlerName": "Yangus",
+        "inRingName": "Warren North",
+        "nicknames": [],
+        "signatureMoves": [
+            "Snow Stomper",
+            "Accolade"
+        ],
+        "finishers": [
+            "Bear Throw",
+            "Avalanche"
+        ],
+        "brandId": 2,
+        "lockerId": 2,
+        "numberOfWins": 0,
+        "numberOfLosses": 0,
+        "numberOfMatches": 0,
+        "wrestlingStreak": 0,
+        "wrestlingTitleList": [],
+        "percentageOfWins": 0.0
+    },
+    {
+        "wrestlerId": 7,
+        "wrestlerName": "Eric Rosebud",
+        "inRingName": "Eric Ross",
+        "nicknames": [
+            "The King of Oldschool",
+            "King Ross"
+        ],
+        "signatureMoves": [
+            "Vintage Leg Drops",
+            "Last Ride"
+        ],
+        "finishers": [
+            "Spear",
+            "King’s Kneel"
+        ],
+        "brandId": 2,
+        "lockerId": 2,
+        "numberOfWins": 0,
+        "numberOfLosses": 0,
+        "numberOfMatches": 0,
+        "wrestlingStreak": 0,
+        "wrestlingTitleList": [],
+        "percentageOfWins": 0.0
+    },
+    {
+        "wrestlerId": 8,
+        "wrestlerName": "Aemis",
+        "inRingName": "Albright Jones",
+        "nicknames": [
+            "The Reaper",
+            "Death itself"
+        ],
+        "signatureMoves": [
+            "Hell’s Descent",
+            "Ritual Beatdown"
+        ],
+        "finishers": [
+            "Death Grip",
+            "Super Chokeslam"
+        ],
+        "brandId": 2,
+        "lockerId": 2,
+        "numberOfWins": 0,
+        "numberOfLosses": 0,
+        "numberOfMatches": 0,
+        "wrestlingStreak": 0,
+        "wrestlingTitleList": [],
+        "percentageOfWins": 0.0
+    },
+    {
+        "wrestlerId": 9,
+        "wrestlerName": "Mallast",
+        "inRingName": "Kurt Makey",
+        "nicknames": [
+            "The Scorpion"
+        ],
+        "signatureMoves": [
+            "Gut Wrenching Punches"
+        ],
+        "finishers": [
+            "The Stinger",
+            "Pendulum Kick"
+        ],
+        "brandId": 2,
+        "lockerId": 2,
+        "numberOfWins": 0,
+        "numberOfLosses": 0,
+        "numberOfMatches": 0,
+        "wrestlingStreak": 0,
+        "wrestlingTitleList": [],
+        "percentageOfWins": 0.0
+    },
+    {
+        "wrestlerId": 10,
+        "wrestlerName": "Titilayo Ayomede",
+        "inRingName": "Tiger Tia",
+        "nicknames": [
+            "The Athlete"
+        ],
+        "signatureMoves": [
+            "Vibe Check",
+            "Breakdance Legdrop"
+        ],
+        "finishers": [
+            "Mood Killer",
+            "Tiger Power Bomb"
+        ],
+        "brandId": 1,
+        "lockerId": 1,
+        "numberOfWins": 0,
+        "numberOfLosses": 0,
+        "numberOfMatches": 0,
+        "wrestlingStreak": 0,
+        "wrestlingTitleList": [],
+        "percentageOfWins": 0.0
+    },
+    {
+        "wrestlerId": 11,
+        "wrestlerName": "Nelke Furcht",
+        "inRingName": "Adorable Ivy",
+        "nicknames": [],
+        "signatureMoves": [
+            "Cross Body Splash",
+            "Falcon Arrow"
+        ],
+        "finishers": [
+            "Slippery Otter",
+            "Abyss Watchers"
+        ],
+        "brandId": 2,
+        "lockerId": 1,
+        "numberOfWins": 0,
+        "numberOfLosses": 0,
+        "numberOfMatches": 0,
+        "wrestlingStreak": 0,
+        "wrestlingTitleList": [],
+        "percentageOfWins": 0.0
+    },
+    {
+        "wrestlerId": 12,
+        "wrestlerName": "Rhemilia",
+        "inRingName": "Rebecca Lawrance",
+        "nicknames": [],
+        "signatureMoves": [
+            "Becky Stab",
+            "Stratusfaction"
+        ],
+        "finishers": [
+            "Becky Statement",
+            "Healing Lobotomy"
+        ],
+        "brandId": 1,
+        "lockerId": 1,
+        "numberOfWins": 0,
+        "numberOfLosses": 0,
+        "numberOfMatches": 0,
+        "wrestlingStreak": 0,
+        "wrestlingTitleList": [],
+        "percentageOfWins": 0.0
+    },
+    {
+        "wrestlerId": 13,
+        "wrestlerName": "Akane Hirai",
+        "inRingName": "Akane Sakamoto",
+        "nicknames": [
+            "The Samurai"
+        ],
+        "signatureMoves": [
+            "MushroomStomp",
+            "Sakamoto’s Legacy",
+            "Flandre's Dropkick"
+        ],
+        "finishers": [
+            "Over the Tower",
+            "Coast to Coast"
+        ],
+        "brandId": 2,
+        "lockerId": 1,
+        "numberOfWins": 0,
+        "numberOfLosses": 0,
+        "numberOfMatches": 0,
+        "wrestlingStreak": 0,
+        "wrestlingTitleList": [],
+        "percentageOfWins": 0.0
+    },
+    {
+        "wrestlerId": 14,
+        "wrestlerName": "Dussek Krieger",
+        "inRingName": "Dr. Deuce",
+        "nicknames": [],
+        "signatureMoves": [
+            "Book End",
+            "Mounted Punches"
+        ],
+        "finishers": [
+            "Doctor’s Rack",
+            "Spear"
+        ],
+        "brandId": 1,
+        "lockerId": 2,
+        "numberOfWins": 0,
+        "numberOfLosses": 0,
+        "numberOfMatches": 0,
+        "wrestlingStreak": 0,
+        "wrestlingTitleList": [],
+        "percentageOfWins": 0.0
+    },
+    {
+        "wrestlerId": 15,
+        "wrestlerName": "Aaron Krieger",
+        "inRingName": "Aaron Schultz",
+        "nicknames": [],
+        "signatureMoves": [
+            "Disciplinary Action",
+            "Viper Strike"
+        ],
+        "finishers": [
+            "The Decapitator",
+            "Viper Hold"
+        ],
+        "brandId": 2,
+        "lockerId": 2,
+        "numberOfWins": 0,
+        "numberOfLosses": 0,
+        "numberOfMatches": 0,
+        "wrestlingStreak": 0,
+        "wrestlingTitleList": [],
+        "percentageOfWins": 0.0
+    },
+    {
+        "wrestlerId": 16,
+        "wrestlerName": "Gewittern Schbeins",
+        "inRingName": "Leon Storm",
+        "nicknames": [
+            "The Animal"
+        ],
+        "signatureMoves": [
+            "Jungle Skull Crusher",
+            "Kick Off"
+        ],
+        "finishers": [
+            "Guillotine",
+            "Lighting Bolt"
+        ],
+        "brandId": 2,
+        "lockerId": 2,
+        "numberOfWins": 0,
+        "numberOfLosses": 0,
+        "numberOfMatches": 0,
+        "wrestlingStreak": 0,
+        "wrestlingTitleList": [],
+        "percentageOfWins": 0.0
+    },
+    {
+        "wrestlerId": 17,
+        "wrestlerName": "Ingibjörg 'Nero' Itoson",
+        "inRingName": "Yuri Matsumoto",
+        "nicknames": [
+            "The Knockout Artist"
+        ],
+        "signatureMoves": [
+            "Foo Dog",
+            "Headbutts"
+        ],
+        "finishers": [
+            "Abbot’s Debt",
+            "Snuff out"
+        ],
+        "brandId": 2,
+        "lockerId": 2,
+        "numberOfWins": 0,
+        "numberOfLosses": 0,
+        "numberOfMatches": 0,
+        "wrestlingStreak": 0,
+        "wrestlingTitleList": [],
+        "percentageOfWins": 0.0
+    },
+    {
+        "wrestlerId": 18,
+        "wrestlerName": "Topsy",
+        "inRingName": "Dirty Alex",
+        "nicknames": [],
+        "signatureMoves": [
+            "Five Nights at Freddies",
+            "Chops of Doom"
+        ],
+        "finishers": [
+            "FU",
+            "The Worm"
+        ],
+        "brandId": 2,
+        "lockerId": 2,
+        "numberOfWins": 0,
+        "numberOfLosses": 0,
+        "numberOfMatches": 0,
+        "wrestlingStreak": 0,
+        "wrestlingTitleList": [],
+        "percentageOfWins": 0.0
+    },
+    {
+        "wrestlerId": 19,
+        "wrestlerName": "Clarisse Vaselvold",
+        "inRingName": "Rachel Heart",
+        "nicknames": [],
+        "signatureMoves": [
+            "Big Heel",
+            "Nose Job"
+        ],
+        "finishers": [
+            "Black Widow",
+            "Prima-DONE"
+        ],
+        "brandId": 2,
+        "lockerId": 2,
+        "numberOfWins": 0,
+        "numberOfLosses": 0,
+        "numberOfMatches": 0,
+        "wrestlingStreak": 0,
+        "wrestlingTitleList": [],
+        "percentageOfWins": 0.0
+    },
+    {
+        "wrestlerId": 20,
+        "wrestlerName": "Pink Wolfgang",
+        "inRingName": "Rowdy Jay",
+        "nicknames": [
+            "Dangerous"
+        ],
+        "signatureMoves": [
+            "Suplex City",
+            "Wolfgang Treatment",
+            "Hyna’s Mawl"
+        ],
+        "finishers": [
+            "Fatality",
+            "Spear"
+        ],
+        "brandId": 2,
+        "lockerId": 2,
+        "numberOfWins": 0,
+        "numberOfLosses": 0,
+        "numberOfMatches": 0,
+        "wrestlingStreak": 0,
+        "wrestlingTitleList": [],
+        "percentageOfWins": 0.0
     }
 ]

@@ -4,7 +4,7 @@ const brandIdHelper = (value) => {
     var brand;
     if(value===CONSTANTS.BRAND.SANGEN){
         brand = "Sangen";
-    } else if (value == CONSTANTS.BRAND.SMACKLDOWN){
+    } else if (value===CONSTANTS.BRAND.SMACKDOWN){
         brand = "Smackdown";
     };
     return brand;
