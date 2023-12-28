@@ -37,4 +37,6 @@ public class WrestlerDTO {
 
     private List<WrestlingTitle> wrestlingTitleList;
 
+    private double percentageOfWins;
+
 }

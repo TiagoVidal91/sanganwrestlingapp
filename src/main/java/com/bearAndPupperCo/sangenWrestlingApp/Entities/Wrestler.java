@@ -64,4 +64,7 @@ public class Wrestler {
     @ManyToMany(mappedBy = "wrestlerList")
     private List<WrestlingTitle> wrestlingTitleList;
 
+    @Column
+    private Integer wrestlingStreak;
+
 }

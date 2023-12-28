@@ -95,6 +95,12 @@ public class WrestlerServiceImpl implements WrestlerSrv{
                     List<?> matchNumber = ((Wrestler) ctx.getSource()).getWrestlingMatchesList();
                     return matchNumber != null ? matchNumber.size() : 0;
                 }).map(src -> src, WrestlerDTO::setNumberOfMatches)
-            );
-        }
+        ).addMappings(
+                mapper -> mapper.using(ctx -> {
+                    List<?> matchNumber = ((Wrestler) ctx.getSource()).getWrestlingMatchesList();
+                    List<?> matchVictories = ((Wrestler) ctx.getSource()).getMatchVictories();
+                    return matchNumber.size() != 0 && matchVictories.size() != 0 ? ((matchVictories.size() / matchNumber.size()) * 100) : 0;
+                }).map(src -> src, WrestlerDTO::setPercentageOfWins)
+        );
     }
+}
