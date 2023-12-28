@@ -3,17 +3,17 @@ package com.bearAndPupperCo.sangenWrestlingApp.Services;
 import com.bearAndPupperCo.sangenWrestlingApp.DTO.WrestlerDTO;
 import com.bearAndPupperCo.sangenWrestlingApp.Entities.Wrestler;
 import com.bearAndPupperCo.sangenWrestlingApp.Entities.WrestlingTitle;
+import com.bearAndPupperCo.sangenWrestlingApp.Exception.WrestlerAlreadyExistsException;
 import com.bearAndPupperCo.sangenWrestlingApp.Repository.WrestlerRepo;
 import com.bearAndPupperCo.sangenWrestlingApp.Repository.WrestlingTitleRepo;
-import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class WrestlerServiceImpl implements WrestlerSrv{
@@ -29,6 +29,11 @@ public class WrestlerServiceImpl implements WrestlerSrv{
 
     @Override
     public Wrestler addNewWrestler(Wrestler wrestler) {
+        if(!wrestlerRepo.findWrestlerByInRingName(wrestler.getInRingName()).isEmpty()){
+            throw new WrestlerAlreadyExistsException("The wrestler already exists on the Database", HttpStatus.CONFLICT.name(),
+                    "It seems like the wrestler " +
+                    "you tried to add was already on our system. Please make sure to add a new wrestler.");
+        }
         //setWrestlingTitleLockerRoom(wrestler);
         return wrestlerRepo.save(wrestler);
     }

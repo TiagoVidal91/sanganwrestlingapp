@@ -14,4 +14,7 @@ public interface WrestlerRepo extends JpaRepository<Wrestler, Long> {
     @Query(value = "SELECT * FROM wrestler r WHERE r.wrestling_brand_id = ?1", nativeQuery = true)
     List<Wrestler> findWrestlerByBrandId(Long brandId);
 
+    @Query(value = "SELECT * FROM wrestler r WHERE r.in_ring_name = ?1", nativeQuery = true)
+    List<Wrestler> findWrestlerByInRingName(String ringName);
+
 }
