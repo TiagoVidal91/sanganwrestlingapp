@@ -1,15 +1,17 @@
 import data from '../mockData.json';
-import Table from '../components/Table';
+import TeiaiTable from '../components/TeiaiTable/TeiaiTable';
+import {filterData} from "../helperFunctions";
 
 const StreakPage = () => {
-    console.log(data);
     var headers= ["Name", "Brand", "Locker room", "Wins", "Loses", "Matches Total"];
     var objectFields=  ["wrestlerName", "brandId", "lockerId", "numberOfWins", "numberOfLosses", "numberOfMatches"];
+    var filteredData = filterData(data, objectFields);
     return (
         <>
             <h1>Score!!!!</h1>
-            <Table tableData={data} tableHeaders={headers} objectFields={objectFields}/>
+            <TeiaiTable tableData={filteredData} tableHeaders={headers} objectFields={objectFields} id={"streakTable"}/>
         </>
     )
 }
 export default StreakPage
+

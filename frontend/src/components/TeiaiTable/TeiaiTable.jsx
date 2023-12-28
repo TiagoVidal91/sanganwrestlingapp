@@ -1,7 +1,7 @@
 import React from "react";
-import {brandIdHelper, lockerroomIdHelper} from "../helperFunctions";
+import Table from 'react-bootstrap/Table'; 
 
-const Table = ({tableData, tableHeaders, objectFields}) => {
+const TeiaiTable = ({tableData, tableHeaders, id}) => {
     const tableHeader = () => {
         return (
         <tr data-id={0}>  
@@ -15,11 +15,9 @@ const Table = ({tableData, tableHeaders, objectFields}) => {
 
     const tableBody = () => {
         return tableData.map((dataPoint,index) => {
-            const cells = Object.keys(dataPoint).filter(key => objectFields ? objectFields.includes(key) : null ).map((key, keyIndex) => {
+            const cells = Object.keys(dataPoint).map((key, keyIndex) => {
                 return <td key={key + keyIndex}>
-                    {key === "brandId" ? brandIdHelper(dataPoint[key]) : 
-                        key === "lockerId" ? lockerroomIdHelper(dataPoint[key]) : 
-                            dataPoint[key]}
+                    {dataPoint[key]}
                 </td>;
             });
             return (
@@ -32,11 +30,11 @@ const Table = ({tableData, tableHeaders, objectFields}) => {
 
 
     return (
-        <table>
+        <Table responsive striped hover>
             <thead>{tableHeader()}</thead>
             <tbody>{tableBody()}</tbody>
-        </table>
+        </Table>
     )      
 }
 
-export default Table;
+export default TeiaiTable;

@@ -1,7 +1,6 @@
 import CONSTANTS from "./CONSTANTS.json"
 
 const brandIdHelper = (value) => {
-    console.log("brand")
     var brand;
     if(value===CONSTANTS.BRAND.SANGEN){
         brand = "Sangen";
@@ -21,4 +20,11 @@ const lockerroomIdHelper = (value) => {
     return lockerroom;
 }
 
-export { brandIdHelper, lockerroomIdHelper };
+const filterData = (data, objectFields) => {
+    return data.map((dataPoint) => Object.keys(dataPoint).filter(key => objectFields.includes(key)).map((key) => {
+        return (key === "brandId" ? brandIdHelper(dataPoint[key]) : 
+        key === "lockerId" ? lockerroomIdHelper(dataPoint[key]) : dataPoint[key])}
+    ));
+}
+
+export { brandIdHelper, lockerroomIdHelper, filterData };
