@@ -40,7 +40,6 @@ const TeiaiTable = ({tableData, tableHeaders, id}) => {
             items.push(
                 <Pagination.Item 
                     className={`${number === activePage ? "activePage" : "paginationItem"}`} 
-                    active={number === activePage} //THIS BREAKS THE CSS
                     key={number} 
                     onClick={() => onClickPagination(number)}>
                     {number}

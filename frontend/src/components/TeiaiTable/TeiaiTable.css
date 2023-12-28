@@ -5,3 +5,8 @@
 .pagination{
     user-select: none;
 }
+
+.activePage .page-link{
+    background-color:blue !important;
+    color: white !important;
+}
