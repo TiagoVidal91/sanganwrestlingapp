@@ -29,27 +29,13 @@ public class WrestlerController {
         String wrestlerMsg = gson.toJson(wrestlerSrv.addNewWrestler(wrestler));
         return new ResponseEntity<String>(wrestlerMsg, HttpStatus.OK);
     }
-
-    @GetMapping(value = "/findAllWrestlers")
-    public ResponseEntity<String> findAllWrestlers(){
-        List<WrestlerDTO> wrestlerList = wrestlerSrv.findAllWrestlers();
-        String wrestlerMsg = gson.toJson(wrestlerList);
+    @GetMapping(value = "/findAllWrestlersByParam")
+    public ResponseEntity<String> findAllWrestlersByParams(
+            @RequestParam(name = "page") int page,
+            @RequestParam(name = "size") int size,
+            @RequestParam(name = "brandId", required = false) Integer brandId,
+            @RequestParam(name = "lockerId", required = false) Integer lockerId){
+        String wrestlerMsg = gson.toJson(wrestlerSrv.findAllWrestlersByParams(page, size, brandId, lockerId));
         return new ResponseEntity<String>(wrestlerMsg, HttpStatus.OK);
     }
-
-    @GetMapping(value = "/findWrestlerByLocker/{lockerId}")
-    public ResponseEntity<String> findWrestlerByLocker(@RequestParam long lockerId){
-        String wrestlerMsg = gson.toJson(wrestlerSrv.findWrestlerByLocker(lockerId));
-        return new ResponseEntity<String>(wrestlerMsg, HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/findWrestlerByBrand/{brandId}")
-    public ResponseEntity<String> findWrestlerByBrand(@RequestParam long brandId){
-        String wrestlerMsg = gson.toJson(wrestlerSrv.findWrestlerByBrand(brandId));
-        return new ResponseEntity<String>(wrestlerMsg, HttpStatus.OK);
-    }
-
-
-
-
 }

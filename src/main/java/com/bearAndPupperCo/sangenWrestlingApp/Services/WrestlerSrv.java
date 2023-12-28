@@ -2,15 +2,14 @@ package com.bearAndPupperCo.sangenWrestlingApp.Services;
 
 import com.bearAndPupperCo.sangenWrestlingApp.DTO.WrestlerDTO;
 import com.bearAndPupperCo.sangenWrestlingApp.Entities.Wrestler;
+import com.bearAndPupperCo.sangenWrestlingApp.Pagination.PaginatedResponse;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface WrestlerSrv {
 
     Wrestler addNewWrestler(Wrestler wrestler);
-    List<WrestlerDTO> findAllWrestlers();
-    List<Wrestler> findWrestlerByLocker(Long lockerId);
-
-    List<Wrestler> findWrestlerByBrand(Long brandId);
+    PaginatedResponse<WrestlerDTO> findAllWrestlersByParams(int page, int size, Integer brandId, Integer lockerId);
 
 }

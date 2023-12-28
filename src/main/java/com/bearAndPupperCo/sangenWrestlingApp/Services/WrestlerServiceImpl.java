@@ -4,16 +4,20 @@ import com.bearAndPupperCo.sangenWrestlingApp.DTO.WrestlerDTO;
 import com.bearAndPupperCo.sangenWrestlingApp.Entities.Wrestler;
 import com.bearAndPupperCo.sangenWrestlingApp.Entities.WrestlingTitle;
 import com.bearAndPupperCo.sangenWrestlingApp.Exception.WrestlerAlreadyExistsException;
+import com.bearAndPupperCo.sangenWrestlingApp.Pagination.PaginatedResponse;
 import com.bearAndPupperCo.sangenWrestlingApp.Repository.WrestlerRepo;
 import com.bearAndPupperCo.sangenWrestlingApp.Repository.WrestlingTitleRepo;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class WrestlerServiceImpl implements WrestlerSrv{
@@ -27,6 +31,18 @@ public class WrestlerServiceImpl implements WrestlerSrv{
     @Autowired
     ModelMapper modelMapper;
 
+    public WrestlerServiceImpl(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+        initializeTypeMap();
+    }
+
+    private void initializeTypeMap() {
+        TypeMap<Wrestler, WrestlerDTO> propertyMapper = modelMapper.createTypeMap(Wrestler.class, WrestlerDTO.class);
+        modelMapper.getConfiguration().setSkipNullEnabled(true);
+        modelMapper.getConfiguration().setPreferNestedProperties(false);
+        defineWrestlerMapper(propertyMapper);
+    }
+
     @Override
     public Wrestler addNewWrestler(Wrestler wrestler) {
         if(!wrestlerRepo.findWrestlerByInRingName(wrestler.getInRingName()).isEmpty()){
@@ -39,40 +55,23 @@ public class WrestlerServiceImpl implements WrestlerSrv{
     }
 
     @Override
-    public List<WrestlerDTO> findAllWrestlers() {
-        List<WrestlerDTO> wrestlerDTOList = new ArrayList<>();
+    public PaginatedResponse<WrestlerDTO> findAllWrestlersByParams(int page, int size, Integer brandId, Integer lockerId) {
+        Pageable pageable = PageRequest.of(page, size);
 
-        TypeMap<Wrestler, WrestlerDTO> propertyMapper = modelMapper.createTypeMap(Wrestler.class, WrestlerDTO.class);
-        modelMapper.getConfiguration().setSkipNullEnabled(true);
-        modelMapper.getConfiguration().setPreferNestedProperties(false);
-        defineWrestlerMapper(propertyMapper);
+        Page<Wrestler> wrestlersPage = wrestlerRepo.findDataByParams(pageable, brandId, lockerId);
 
-        for (Wrestler wrestler: wrestlerRepo.findAll()) {
-            WrestlerDTO wrestlerDTO = modelMapper.map(wrestler, WrestlerDTO.class);
-            wrestlerDTOList.add(wrestlerDTO);
-        }
+        List<WrestlerDTO> wrestlerDTOList = wrestlersPage
+                .stream()
+                .map(wrestler -> modelMapper.map(wrestler, WrestlerDTO.class))
+                .collect(Collectors.toList());
 
-        return wrestlerDTOList;
-
-    }
-
-    @Override
-    public List<Wrestler> findWrestlerByLocker(Long lockerId) {
-        return wrestlerRepo.findWrestlerByWrestlingLockerRoomId(lockerId);
-    }
-
-    @Override
-    public List<Wrestler> findWrestlerByBrand(Long brandId) {
-        return wrestlerRepo.findWrestlerByBrandId(brandId);
-    }
-
-    //This code was created to solve a bug that was caused by something different, so it is not being used, however
-    //it might in the future
-    private void setWrestlingTitleLockerRoom(Wrestler wrestler) {
-        for (WrestlingTitle wrestlingTitle: wrestler.getWrestlingTitleList()) {
-            wrestlingTitle.setLockerRoom(wrestlingTitleRepo
-                    .findWrestlingTitleByWrestlingTitleId(wrestlingTitle.getWrestlingTitleId()).getLockerRoom());
-        }
+        return new PaginatedResponse<>(
+                wrestlerDTOList,
+                wrestlersPage.getNumber(),
+                wrestlersPage.getSize(),
+                wrestlersPage.getTotalElements(),
+                wrestlersPage.getTotalPages()
+        );
     }
 
     private void defineWrestlerMapper(TypeMap<Wrestler, WrestlerDTO> propertyMapper) {
