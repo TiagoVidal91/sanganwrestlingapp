@@ -1,16 +1,20 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import { Table, Pagination, } from 'react-bootstrap'; 
-import "./TeiaiTable.css"
+import "./TeiaiTable.css" 
+import "bootstrap-icons/font/bootstrap-icons.css";
 
-const TeiaiTable = ({tableData, tableHeaders, id, numberPages}) => {
-    console.log(tableData);
+
+const TeiaiTable = ({tableData, tableHeaders, objectFields, id, numberPages, onOrderChange, fullWidth}) => {
     //TABLE HEADERS
     const tableHeader = () => {
         return (
         <tr data-id={0}>  
             {tableHeaders.map((header, index) => {
             return (  
-                  <th key={index}>{header}</th>
+                <th key={header+index} onClick={(e) => onOrderIconClick(e, objectFields[index])}>
+                    {header}
+                    <i className={`paginationIcons ${orderBy.column===objectFields[index]? orderBy.order === "asc" ? "bi bi-arrow-up" : "bi bi-arrow-down" : "bi bi-arrow-down-up"}`}></i>
+                </th>
             )})}
         </tr>
         )
@@ -35,6 +39,7 @@ const TeiaiTable = ({tableData, tableHeaders, id, numberPages}) => {
     //TABLE PAGINATION
     const [activePage, setActivePage] = useState(1);
     const [totalPages, setTotalPages] = useState(numberPages);
+    const [paginationState, setPaginationState] = useState({left: false, right: false});
     const tablePagination = () => { 
         let items = [];
         for (let number = 1; number <= totalPages; number++) {
@@ -65,18 +70,46 @@ const TeiaiTable = ({tableData, tableHeaders, id, numberPages}) => {
         }
     }
 
+    useEffect(() => {
+		let left = false;
+		let right = false;
+		if (activePage > 1 && activePage <= totalPages) {
+			left = true;
+		}
+		if (activePage >= 1 && activePage < totalPages) {
+			right = true;
+		}
+		setPaginationState({ left: left, right: right });
+	}, [activePage, totalPages]);
+
+    //COLUMN ORDER
+    const [orderBy, setOrderBy] = useState({ order: "", column: "" });
+
+    const onOrderIconClick = (e, header) => {
+		e.preventDefault();
+        let newOrder;
+		if (orderBy.order === "" || orderBy.order === "desc") {
+			newOrder = "asc";
+		} else {
+            newOrder = "desc";
+        }
+		setOrderBy({ order: newOrder, column: header });
+		onOrderChange(e, newOrder, header);
+	};
+
+
     return (
-        <>
-            <Table responsive striped hover className={id}>
+        <div className={fullWidth? "teiaiTableWidth" : "teiaiTableFullWidth"}>
+            <Table responsive striped hover className={`teiaiTable ${id}`}>
                 <thead>{tableHeader()}</thead>
                 <tbody>{tableBody()}</tbody>
             </Table>
-            <Pagination className={"pagination"}>
-                <Pagination.Prev onClick={() => onPaginationPrev()} className={"paginationItem"}/>
+            <Pagination className={"teiaiTablePagination"}>
+                <Pagination.Prev onClick={() => onPaginationPrev()} className={"teiaiTablePaginationItem"} disabled={paginationState.right}/>
                 {tablePagination()}
-                <Pagination.Next onClick={() => onPaginationNext()} className={"paginationItem"}/>
+                <Pagination.Next onClick={() => onPaginationNext()} className={"teiaiTablePaginationItem"} disabled={paginationState.left}/>
             </Pagination>
-        </>
+        </div>
     )      
 }
 

@@ -2,11 +2,19 @@
     user-select: none;
 }
 
-.pagination{
+.teiaiTablePagination{
     user-select: none;
 }
 
 .activePage .page-link{
     background-color:blue !important;
     color: white !important;
+}
+
+.paginationIcons {
+    margin-left: 5%
+}
+
+.teiaiTableWidth {
+    width: 80%
 }
