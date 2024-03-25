@@ -21,10 +21,13 @@ import java.util.List;
 @RequestMapping("/teiai-api/wrestlingTitle")
 public class WrestlingTitleController {
 
-    @Autowired
-    Gson gson;
-    @Autowired
-    WrestlingTitleSrv wrestlingTitleSrv;
+    private final Gson gson;
+    private final WrestlingTitleSrv wrestlingTitleSrv;
+
+    public WrestlingTitleController(Gson gson, WrestlingTitleSrv wrestlingTitleSrv) {
+        this.gson = gson;
+        this.wrestlingTitleSrv = wrestlingTitleSrv;
+    }
 
     @PostMapping(value = "/addTitle")
     public ResponseEntity<String> addNewWrestlingBrand(@RequestBody String wrestlingTitleInfo){

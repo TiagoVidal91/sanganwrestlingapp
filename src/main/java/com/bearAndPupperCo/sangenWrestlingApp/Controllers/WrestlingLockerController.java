@@ -21,17 +21,19 @@ import java.util.List;
 @RequestMapping("/teiai-api/locker")
 public class WrestlingLockerController {
 
-    @Autowired
-    Gson gson;
+    private final Gson gson;
 
-    @Autowired
-    WrestlingLockerSrv wrestlingLockerSrv;
+    private final WrestlingLockerSrv wrestlingLockerSrv;
+    public WrestlingLockerController(Gson gson, WrestlingLockerSrv wrestlingLockerSrv) {
+        this.gson = gson;
+        this.wrestlingLockerSrv = wrestlingLockerSrv;
+    }
 
     @PostMapping(value = "/addLocker")
     public ResponseEntity<String> addNewWrestlingBrand(@RequestBody String wrestlingLockerInfo){
         LockerRoom lockerRoom = gson.fromJson(wrestlingLockerInfo, LockerRoom.class);
         String wrestlingLockerMsg = gson.toJson(wrestlingLockerSrv.addWrestlingLocker(lockerRoom));
-        return new ResponseEntity<String>(wrestlingLockerMsg, HttpStatus.OK);
+        return new ResponseEntity<>(wrestlingLockerMsg, HttpStatus.OK);
     }
     @PostMapping(value = "/addAllLockers")
     public ResponseEntity<String> addNewWrestlingBrandList(@RequestBody String wrestlingLockerInfo){
@@ -41,7 +43,7 @@ public class WrestlingLockerController {
 
         String wrestlingLockersMsg = gson.toJson(wrestlingLockerSrv.addWrestlingLockers(wrestlingLockersList));
 
-        return new ResponseEntity<String>(wrestlingLockersMsg, HttpStatus.OK);
+        return new ResponseEntity<>(wrestlingLockersMsg, HttpStatus.OK);
     }
 
 }

@@ -17,25 +17,28 @@ import java.util.List;
 @RequestMapping("/teiai-api/wrestler")
 public class WrestlerController {
 
-    @Autowired
-    Gson gson;
+    private final Gson gson;
 
-    @Autowired
-    WrestlerSrv wrestlerSrv;
+    private final WrestlerSrv wrestlerSrv;
+
+    public WrestlerController(Gson gson, WrestlerSrv wrestlerSrv) {
+        this.gson = gson;
+        this.wrestlerSrv = wrestlerSrv;
+    }
 
     @PostMapping(value = "/addWrestler")
     public ResponseEntity<String> addNewWrestlingBrand(@RequestBody String wrestlerInfo){
         Wrestler wrestler = gson.fromJson(wrestlerInfo, Wrestler.class);
         String wrestlerMsg = gson.toJson(wrestlerSrv.addNewWrestler(wrestler));
-        return new ResponseEntity<String>(wrestlerMsg, HttpStatus.OK);
+        return new ResponseEntity<>(wrestlerMsg, HttpStatus.OK);
     }
     @GetMapping(value = "/findAllWrestlersByParam")
     public ResponseEntity<String> findAllWrestlersByParams(
-            @RequestParam(name = "page") int page,
-            @RequestParam(name = "size") int size,
+            @RequestParam(name = "pageNumber") int page,
+            @RequestParam(name = "pageSize") int size,
             @RequestParam(name = "brandId", required = false) Integer brandId,
             @RequestParam(name = "lockerId", required = false) Integer lockerId){
         String wrestlerMsg = gson.toJson(wrestlerSrv.findAllWrestlersByParams(page, size, brandId, lockerId));
-        return new ResponseEntity<String>(wrestlerMsg, HttpStatus.OK);
+        return new ResponseEntity<>(wrestlerMsg, HttpStatus.OK);
     }
 }
