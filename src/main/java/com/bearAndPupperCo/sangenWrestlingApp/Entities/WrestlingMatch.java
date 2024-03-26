@@ -5,6 +5,8 @@ import javax.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -19,7 +21,30 @@ public abstract class WrestlingMatch {
     @JoinColumn(name="wrestling_show_id")
     private WrestlingShow wrestlingShow;
 
-    private WrestlingMatchTypeEnum wrestlingMatchTypeEnum;
+    private double rating;
 
+    private String comment;
+
+    @ManyToMany(mappedBy = "wrestlingMatchesList")
+    private List<Wrestler> opponents;
+
+    @ManyToMany(mappedBy = "matchVictories")
+    private List<Wrestler> winner;
+
+    @ManyToMany(mappedBy = "matchLosses")
+    private List<Wrestler> loser;
+
+    private Boolean isDraw;
+
+    @ManyToMany(mappedBy = "matchInterference")
+    private List<Wrestler> interference;
+
+    private Boolean isTitleMatch;
+
+    @ManyToOne
+    @JoinColumn(name="wrestling_title_id")
+    private WrestlingTitle wrestlingTitle;
+
+    private Boolean isMoneyInTheBankCashIn;
 
 }

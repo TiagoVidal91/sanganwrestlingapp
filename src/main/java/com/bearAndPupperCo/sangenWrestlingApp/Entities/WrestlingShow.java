@@ -1,10 +1,9 @@
 package com.bearAndPupperCo.sangenWrestlingApp.Entities;
 
-import com.bearAndPupperCo.sangenWrestlingApp.Enum.ShowTypeEnum;
-import javax.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -14,15 +13,27 @@ public class WrestlingShow {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer wrestlingShowId;
+    private Long wrestlingShowId;
+
+    @OneToMany(mappedBy = "wrestlingShow")
+    private List<WrestlingMatch> wrestlingMatchList;
 
     @ManyToOne
-    @JoinColumn(name="ppv_month_id")
-    private PPVMonth ppvMonth;
+    @JoinColumn(name = "wrestling_month_id")
+    private WrestlingMonth wrestlingMonth;
 
-    private ShowTypeEnum showTypeEnum;
+    @ManyToOne
+    @JoinColumn(name = "wrestling_week_id")
+    private WrestlingWeek wrestlingWeek;
 
-    @OneToMany(mappedBy="wrestlingShow")
-    List<WrestlingMatch> wrestlingMatches;
+    @ManyToOne
+    @JoinColumn(name="wrestling_brand_id")
+    private WrestlingBrand wrestlingBrand;
+
+    @ManyToOne
+    @JoinColumn(name = "wrestling_year_id")
+    private WrestlingYear wrestlingYear;
+
+    private Boolean isPPV;
 
 }

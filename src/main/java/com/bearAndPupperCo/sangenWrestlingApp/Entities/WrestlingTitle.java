@@ -1,6 +1,5 @@
 package com.bearAndPupperCo.sangenWrestlingApp.Entities;
 
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,11 +17,14 @@ public class WrestlingTitle {
 
     private String titleName;
 
-    private String titleType;
+    @ManyToMany
+    private List<Wrestler> wrestlerList;
 
-    private String titleSex;
+    @OneToMany(mappedBy = "wrestlingTitle")
+    private List<WrestlingMatch> wrestlingMatches;
 
-    @OneToMany(mappedBy="wrestlingTitle")
-    List<TitleReign> titleReigns;
+    @ManyToOne
+    @JoinColumn(name = "wrestling_locker_room_id")
+    private LockerRoom lockerRoom;
 
 }

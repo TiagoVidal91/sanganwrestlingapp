@@ -1,7 +1,5 @@
 package com.bearAndPupperCo.sangenWrestlingApp.Entities;
 
-
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,15 +11,18 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class WrestlingBrand {
+public class LockerRoom {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long wrestlingBrandId;
+    private Long wrestlingLockerRoomId;
 
-    private String wrestlingBrandName;
+    private String wrestlingLockerRoomName;
 
-    @OneToMany(mappedBy="wrestlingBrand")
+    @OneToMany(mappedBy="wrestlingLockerRoom")
     List<Wrestler> wrestlers;
+
+    @OneToMany(mappedBy = "lockerRoom")
+    List<WrestlingTitle> wrestlingTitles;
 
 }

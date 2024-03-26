@@ -4,22 +4,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
-public class WrestlingAward {
-
+public class WrestlingWeek {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer wrestlingAwardsId;
+    private Long wrestlingWeekId;
 
-    private String awardName;
+    private String wrestlingWeekName;
 
-    @ManyToOne
-    @JoinColumn(name="wrestling_year_id")
-    private WrestlingYear wrestlingYear;
-
-    private Integer awardsType;
-
+    @OneToMany(mappedBy = "wrestlingWeek")
+    List<WrestlingShow> wrestlingShows;
 }
