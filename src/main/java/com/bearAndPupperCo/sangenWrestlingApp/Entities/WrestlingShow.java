@@ -36,5 +36,4 @@ public class WrestlingShow {
 
     private Boolean isPPV;
 
-
 }

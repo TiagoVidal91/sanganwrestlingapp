@@ -1,15 +1,15 @@
 package com.bearAndPupperCo.sangenWrestlingApp.Entities;
 
+import com.bearAndPupperCo.sangenWrestlingApp.Enum.WrestlingMatchTypeEnum;
+import javax.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
-public class WrestlingMatch {
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class WrestlingMatch {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
