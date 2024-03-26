@@ -10,8 +10,12 @@ import java.util.List;
 @Service
 public class WrestlingBrandSrvImpl implements WrestlingBrandSrv{
 
-    @Autowired
-    WrestlingBrandRepo wrestlingBrandRepo;
+
+    private final WrestlingBrandRepo wrestlingBrandRepo;
+
+    public WrestlingBrandSrvImpl(WrestlingBrandRepo wrestlingBrandRepo) {
+        this.wrestlingBrandRepo = wrestlingBrandRepo;
+    }
 
     @Override
     public WrestlingBrand addWrestlingBrand(WrestlingBrand wrestlingBrand) {

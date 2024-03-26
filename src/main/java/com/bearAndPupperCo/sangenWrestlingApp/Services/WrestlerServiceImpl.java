@@ -22,16 +22,12 @@ import java.util.stream.Collectors;
 @Service
 public class WrestlerServiceImpl implements WrestlerSrv{
 
-    @Autowired
-    WrestlerRepo wrestlerRepo;
+    private final WrestlerRepo wrestlerRepo;
 
-    @Autowired
-    WrestlingTitleRepo wrestlingTitleRepo;
+    private final ModelMapper modelMapper;
 
-    @Autowired
-    ModelMapper modelMapper;
-
-    public WrestlerServiceImpl(ModelMapper modelMapper) {
+    public WrestlerServiceImpl(WrestlerRepo wrestlerRepo, ModelMapper modelMapper) {
+        this.wrestlerRepo = wrestlerRepo;
         this.modelMapper = modelMapper;
         initializeTypeMap();
     }
@@ -45,11 +41,7 @@ public class WrestlerServiceImpl implements WrestlerSrv{
 
     @Override
     public Wrestler addNewWrestler(Wrestler wrestler) {
-        if(!wrestlerRepo.findWrestlerByInRingName(wrestler.getInRingName()).isEmpty()){
-            throw new WrestlerAlreadyExistsException("The wrestler already exists on the Database", HttpStatus.CONFLICT.name(),
-                    "It seems like the wrestler " +
-                    "you tried to add was already on our system. Please make sure to add a new wrestler.");
-        }
+        verifyIfWrestlerExists(wrestler);
         //setWrestlingTitleLockerRoom(wrestler);
         return wrestlerRepo.save(wrestler);
     }
@@ -101,5 +93,14 @@ public class WrestlerServiceImpl implements WrestlerSrv{
                     return matchNumber.size() != 0 && matchVictories.size() != 0 ? ((matchVictories.size() / matchNumber.size()) * 100) : 0;
                 }).map(src -> src, WrestlerDTO::setPercentageOfWins)
         );
+    }
+
+    private void verifyIfWrestlerExists(Wrestler wrestler){
+        if(!wrestlerRepo.findWrestlerByInRingName(wrestler.getInRingName()).isEmpty()){
+            throw new WrestlerAlreadyExistsException("The wrestler already exists on the Database",
+                    HttpStatus.CONFLICT.name(),
+                    "It seems like the wrestler " +
+                    "you tried to add was already on our system. Please make sure to add a new wrestler.");
+        }
     }
 }

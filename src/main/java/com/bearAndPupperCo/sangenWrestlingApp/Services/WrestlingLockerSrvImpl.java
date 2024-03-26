@@ -10,8 +10,11 @@ import java.util.List;
 @Service
 public class WrestlingLockerSrvImpl implements WrestlingLockerSrv{
 
-    @Autowired
-    WrestlingLockerRepo wrestlingLockerRepo;
+    private final WrestlingLockerRepo wrestlingLockerRepo;
+
+    public WrestlingLockerSrvImpl(WrestlingLockerRepo wrestlingLockerRepo) {
+        this.wrestlingLockerRepo = wrestlingLockerRepo;
+    }
 
     @Override
     public LockerRoom addWrestlingLocker(LockerRoom lockerRoom) {
