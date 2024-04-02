@@ -59,12 +59,12 @@ public class WebSecurityConfig {
         http.csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/*").permitAll()
+                .authorizeRequests().antMatchers("/*").permitAll();
                 //.antMatchers("/api/auth/**").permitAll()
                 //.antMatchers("/api/region/**").permitAll()
                 //.antMatchers("/api/indicators/**").permitAll()
                 //.antMatchers("/api/test/**").permitAll()
-        .anyRequest().authenticated();
+        //.anyRequest().authenticated();
 
         http.authenticationProvider(authenticationProvider());
 
