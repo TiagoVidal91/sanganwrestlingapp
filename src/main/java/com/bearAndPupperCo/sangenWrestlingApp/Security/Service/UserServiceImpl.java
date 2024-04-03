@@ -15,7 +15,6 @@ import java.util.Set;
 public class UserServiceImpl implements UserService{
 
     private final UserRepo userRepo;
-
     private final RoleService roleService;
     private final PasswordEncoder encoder;
 

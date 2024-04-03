@@ -1,9 +1,11 @@
 package com.bearAndPupperCo.sangenWrestlingApp.Security.Controller;
 
+import com.bearAndPupperCo.sangenWrestlingApp.Security.DTO.LoginRequest;
 import com.bearAndPupperCo.sangenWrestlingApp.Security.DTO.SignupRequest;
 import com.bearAndPupperCo.sangenWrestlingApp.Security.Entity.Role;
 import com.bearAndPupperCo.sangenWrestlingApp.Security.Entity.User;
 import com.bearAndPupperCo.sangenWrestlingApp.Security.Service.RoleService;
+import com.bearAndPupperCo.sangenWrestlingApp.Security.Service.UserDetailsImpl;
 import com.bearAndPupperCo.sangenWrestlingApp.Security.Service.UserService;
 import com.bearAndPupperCo.sangenWrestlingApp.Security.Utils.JwtUtils;
 import com.bearAndPupperCo.sangenWrestlingApp.TypeAdapters.LocalDateTypeAdapter;
@@ -59,27 +61,27 @@ public class AuthController {
         }
     }
 
-    /*@PostMapping("/signin")
+    @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@RequestBody String info) {
 
-        LoginRequest loginRequest = gson.fromJson(info,LoginRequest.class);
+        LoginRequest loginRequest = gson.fromJson(info, LoginRequest.class);
 
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        UserDetailsImp userDetails = (UserDetailsImp) authentication.getPrincipal();
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
         ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
 
-        List<String> roles = userDetails.getAuthorities().stream()
+        /*List<String> roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList());*/
 
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-                .body(gson.toJson(new UserInfo(userDetails.getUsername(), roles)));
-    }*/
+                .body(null);
+    }
 
     @PostMapping("/signout")
     public ResponseEntity<?> logoutUser() {

@@ -2,19 +2,22 @@ package com.bearAndPupperCo.sangenWrestlingApp.Security.Utils;
 
 import com.bearAndPupperCo.sangenWrestlingApp.Security.Service.UserDetailsImpl;
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseCookie;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.WebUtils;
 
 import javax.crypto.SecretKey;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class JwtUtils {
@@ -24,10 +27,13 @@ public class JwtUtils {
     private String jwtSecret;
 
     @Value("${sanganwrestling.app.jwtExpirationMs}")
-    private int jwtExpirationMs;
+    private Long jwtExpirationMs;
 
     @Value("${sanganwrestling.app.jwtCookieName}")
     private String jwtCookie;
+
+    @Value("${sanganwrestling.app.jwtAuthorityKeys}")
+    private String authorityKeys;
 
     public String getJwtFromCookies(HttpServletRequest request) {
         Cookie cookie = WebUtils.getCookie(request, jwtCookie);
@@ -39,10 +45,11 @@ public class JwtUtils {
     }
 
     public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
-        String jwt = generateTokenFromUsername(userPrincipal.getUsername());
+        String jwt = generateTokenFromUser(userPrincipal);
         ResponseCookie cookie = ResponseCookie
                 .from(jwtCookie, jwt)
-                .path("/api").maxAge(24 * 60 * 60)
+                .path("/teiai-api").maxAge(24 * 60 * 60)
+                .secure(false)
                 .httpOnly(true).build();
         return cookie;
     }
@@ -50,20 +57,21 @@ public class JwtUtils {
     public ResponseCookie getCleanJwtCookie() {
         ResponseCookie cookie = ResponseCookie
                 .from(jwtCookie, null)
-                .path("/api").maxAge(0)
+                .path("/teiai-api").maxAge(0)
+                .secure(false)
                 .httpOnly(true).build();
         return cookie;
     }
 
     public String getUserNameFromJwtToken(String token) {
-        SecretKey secretKey = Keys.hmacShaKeyFor(jwtSecret.getBytes());
+        SecretKey secretKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
         Claims claims = Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload();
         return claims.getSubject();
     }
 
     public boolean validateJwtToken(String authToken) {
         try {
-            SecretKey secretKey = Keys.hmacShaKeyFor(jwtSecret.getBytes());
+            SecretKey secretKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
             Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(authToken);
             return true;
         } catch (SignatureException e) {
@@ -81,9 +89,20 @@ public class JwtUtils {
         return false;
     }
 
-    public String generateTokenFromUsername(String username) {
-        SecretKey secretKey = Keys.hmacShaKeyFor(jwtSecret.getBytes());
-        return Jwts.builder().signWith(secretKey).compact();
+    public String generateTokenFromUser(UserDetailsImpl userDetails) {
+        SecretKey secretKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
+
+        Set<String> authorities = userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toSet());
+
+        return Jwts.builder()
+                .subject(userDetails.getUsername())
+                .claim(authorityKeys, authorities)
+                .expiration(new Date((new Date()).getTime() + jwtExpirationMs))
+                .issuedAt(new Date())
+                .signWith(secretKey, Jwts.SIG.HS512)
+                .compact();
     }
 
 }
