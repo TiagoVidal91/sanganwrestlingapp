@@ -8,7 +8,7 @@ const TeiaiButton = ({
     return (
         <>
             <button type="button" className={"teiaiButton " + classNames}{...others}>
-                <p>{label}</p>
+                <span>{label}</span>
             </button>
         </>
     )

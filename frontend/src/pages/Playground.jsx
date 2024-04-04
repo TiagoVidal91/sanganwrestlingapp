@@ -17,8 +17,10 @@ const Playground = () => {
 
             <div className="componentTime container-fluid row text-center">
                 <div className="col-12">
-                    <TeiaiButton onClick={()=>console.log("cocó")} label={"Primary"} classNames={"primaryButton"}/>
-                    <TeiaiButton onClick={()=>console.log("xixi")} label={"Secondary"} classNames={"secondaryButton"}/>
+                    <TeiaiButton onClick={()=>console.log("cocó")} label={"Sangen"} classNames={"primaryButton sangenButton h3Button"}/>
+                    <TeiaiButton onClick={()=>console.log("cocó")} label={"Smackdown"} classNames={"primaryButton smackdownButton h3Button"}/>
+                    <TeiaiButton onClick={()=>console.log("cocó")} label={"Primary"} classNames={"primaryButton h3Button"}/>
+                    <TeiaiButton onClick={()=>console.log("xixi")} label={"Secondary"} classNames={"secondaryButton h3Button"}/>
                 </div>
             </div>
         </div>

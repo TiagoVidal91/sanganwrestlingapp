@@ -22,14 +22,12 @@ html {
 }
   
 body {
-    font-family: "Roboto Regular";
     font-style: normal;
     background-color: var(--primary-bg-color);
 }
 
   /* Headings*/
 h1 {
-    font-family: "Roboto Bold";
     font-style: normal;
     font-weight: 400;
     font-size: 46px;
@@ -38,7 +36,6 @@ h1 {
 }
 
 h2 {
-    font-family: "Roboto Regular";
     font-style: normal;
     font-weight: 400;
     font-size: 36px;
@@ -47,7 +44,6 @@ h2 {
 }
 
 h3 {
-    font-family: "Roboto Regular";
     font-style: normal;
     font-weight: 400;
     font-size: 24px;
@@ -57,7 +53,6 @@ h3 {
 
 /* Paragraph */
 p {
-    font-family: "Roboto Regular";
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
