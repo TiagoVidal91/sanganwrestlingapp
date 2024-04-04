@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Pagination, } from 'react-bootstrap'; 
+import { Table, Pagination } from 'react-bootstrap'; 
 import "./TeiaiTable.css" 
 import "bootstrap-icons/font/bootstrap-icons.css";
 

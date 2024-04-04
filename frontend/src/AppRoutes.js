@@ -1,5 +1,6 @@
 import LandingPage from "./pages/LandingPage";
 import StreakPage from "./pages/StreakPage";
+import Playground from "./pages/Playground";
 
 const AppRoutes = [
     {
@@ -9,6 +10,10 @@ const AppRoutes = [
     { 
         path: "/streaks",
         element: <StreakPage />
+    },
+    {
+        path: "/playground",
+        element: <Playground />
     }
 ]
 

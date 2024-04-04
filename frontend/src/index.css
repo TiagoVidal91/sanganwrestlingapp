@@ -1,0 +1,65 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300ita‌​lic,400italic,500,500italic,700,700italic,900italic,900);
+html, body, html * {
+  font-family: 'Roboto', sans-serif;
+}
+
+:root {
+    --primary-bg-color: #ffffff;
+    --secondary-bg-color: #e0dede;
+    --sangen-color: #8b1010;
+    --sangen-color-hover: #913737;
+    --smackdown-color: #1b2079;
+    --smackdown-color-hover: #3a3791;
+    --teiai-color: #957b2f;
+    --teiai-color-hover: #c2ac6a;
+    --dark-accent-color: #323232;
+    --accent-color: #5d5c5c;
+    --light-accent-color: #cccccc;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+  
+body {
+    font-family: "Roboto Regular";
+    font-style: normal;
+    background-color: var(--primary-bg-color);
+}
+
+  /* Headings*/
+h1 {
+    font-family: "Roboto Bold";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 46px;
+    letter-spacing: -0.04em;
+    color: var(--heading-color);
+}
+
+h2 {
+    font-family: "Roboto Regular";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    letter-spacing: -0.04em;
+    color: var(--heading-color);
+}
+
+h3 {
+    font-family: "Roboto Regular";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    letter-spacing: -0.04em;
+    color: var(--heading-color);
+}
+
+/* Paragraph */
+p {
+    font-family: "Roboto Regular";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    color: var(--paragraph-color);
+}
