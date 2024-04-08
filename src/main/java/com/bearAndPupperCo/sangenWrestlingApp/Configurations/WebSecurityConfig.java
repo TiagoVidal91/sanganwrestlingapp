@@ -60,7 +60,9 @@ public class WebSecurityConfig {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .antMatchers("/teiai-api/admin/**").hasAuthority("ADMIN");
+                .antMatchers("/teiai-api/admin/**").hasAuthority("ADMIN")
+                .antMatchers("/teiai-api/**").permitAll();
+
                 //.anyRequest().authenticated();
 
         http.authenticationProvider(authenticationProvider());

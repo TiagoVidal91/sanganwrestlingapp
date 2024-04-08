@@ -1,6 +1,7 @@
 package com.bearAndPupperCo.sangenWrestlingApp.Configurations;
 
 import com.bearAndPupperCo.sangenWrestlingApp.Error.CustomError;
+import com.bearAndPupperCo.sangenWrestlingApp.Exception.JwtCookieNotFoundException;
 import com.bearAndPupperCo.sangenWrestlingApp.Exception.WrestlerAlreadyExistsException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +31,10 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.CONFLICT);
     }
 
-    // Add more exception handlers as needed
+    @ExceptionHandler(JwtCookieNotFoundException.class)
+    public ResponseEntity<?> handleJwtCookieNotFoundException(JwtCookieNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("JWT cookie not found");
+    }
 
     private <T extends Throwable> CustomError<String> createCustomError(
             String customMessage, WebRequest request, HttpStatus httpStatus, T ex, String userMessage) {
