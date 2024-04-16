@@ -42,6 +42,14 @@ public class User {
                 this.creatingDate = creatingDate;
         }
 
+        public User(String username, String email, String password, LocalDate creatingDate, Set<Role> roles) {
+                this.username = username;
+                this.email = email;
+                this.password = password;
+                this.creatingDate = creatingDate;
+                this.roles = roles;
+        }
+
         public Long getId() {
                 return id;
         }

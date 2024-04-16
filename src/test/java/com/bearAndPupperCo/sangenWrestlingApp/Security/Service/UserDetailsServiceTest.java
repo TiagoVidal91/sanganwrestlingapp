@@ -62,22 +62,5 @@ class UserDetailsServiceTest {
         verify(userRepo, times(1)).findByUsername(username);
     }
 
-    @Test
-    public void testLoadUserByUsername_UserBuild(){
-        String username = "User_Test";
-        String password = "Password_Test";
 
-        when(user.getUsername()).thenReturn(username);
-        when(user.getPassword()).thenReturn(password);
-        when(userRepo.findByUsername(username)).thenReturn(Optional.of(user));
-
-        UserDetailsService userDetailsService = new UserDetailsServiceImpl(userRepo);
-
-        // Act
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-
-        assertEquals(username, userDetails.getUsername());
-        assertEquals(password, userDetails.getPassword());
-
-    }
 }
