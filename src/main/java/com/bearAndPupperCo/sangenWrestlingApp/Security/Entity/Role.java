@@ -1,17 +1,13 @@
 package com.bearAndPupperCo.sangenWrestlingApp.Security.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @Table(name = "platform_role")
 public class Role {
 

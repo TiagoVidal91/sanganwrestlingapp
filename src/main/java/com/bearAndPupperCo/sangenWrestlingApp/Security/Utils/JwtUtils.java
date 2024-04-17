@@ -1,5 +1,6 @@
 package com.bearAndPupperCo.sangenWrestlingApp.Security.Utils;
 
+import com.bearAndPupperCo.sangenWrestlingApp.Exception.JwtCookieNotFoundException;
 import com.bearAndPupperCo.sangenWrestlingApp.Security.Service.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
@@ -11,13 +12,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
-import org.springframework.web.util.WebUtils;
 
 import javax.crypto.SecretKey;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.Date;
+import java.util.Set;
 import java.util.stream.Collectors;
+
+import static com.bearAndPupperCo.sangenWrestlingApp.APIUtils.MessageConstants.JWT_COOKIE_NOT_FOUND_MSG;
 
 @Component
 public class JwtUtils {
@@ -36,31 +39,32 @@ public class JwtUtils {
     private String authorityKeys;
 
     public String getJwtFromCookies(HttpServletRequest request) {
-        Cookie cookie = WebUtils.getCookie(request, jwtCookie);
-        if (cookie != null) {
-            return cookie.getValue();
-        } else {
-            return null;
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals(jwtCookie)) {
+                    return cookie.getValue();
+                }
+            }
         }
+        throw new JwtCookieNotFoundException(JWT_COOKIE_NOT_FOUND_MSG);
     }
 
     public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
         String jwt = generateTokenFromUser(userPrincipal);
-        ResponseCookie cookie = ResponseCookie
+        return ResponseCookie
                 .from(jwtCookie, jwt)
                 .path("/teiai-api").maxAge(24 * 60 * 60)
                 .secure(false)
                 .httpOnly(true).build();
-        return cookie;
     }
 
     public ResponseCookie getCleanJwtCookie() {
-        ResponseCookie cookie = ResponseCookie
+        return ResponseCookie
                 .from(jwtCookie, null)
                 .path("/teiai-api").maxAge(0)
                 .secure(false)
                 .httpOnly(true).build();
-        return cookie;
     }
 
     public String getUserNameFromJwtToken(String token) {
@@ -76,17 +80,20 @@ public class JwtUtils {
             return true;
         } catch (SignatureException e) {
             logger.error("Invalid JWT signature: {}", e.getMessage());
+            throw new SignatureException(e.getMessage());
         } catch (MalformedJwtException e) {
             logger.error("Invalid JWT token: {}", e.getMessage());
+            throw new MalformedJwtException(e.getMessage());
         } catch (ExpiredJwtException e) {
             logger.error("JWT token is expired: {}", e.getMessage());
+            throw new RuntimeException(e.getMessage());
         } catch (UnsupportedJwtException e) {
             logger.error("JWT token is unsupported: {}", e.getMessage());
+            throw new UnsupportedJwtException(e.getMessage());
         } catch (IllegalArgumentException e) {
             logger.error("JWT claims string is empty: {}", e.getMessage());
+            throw new IllegalArgumentException(e.getMessage());
         }
-
-        return false;
     }
 
     public String generateTokenFromUser(UserDetailsImpl userDetails) {

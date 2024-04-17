@@ -1,5 +1,6 @@
 package com.bearAndPupperCo.sangenWrestlingApp.Security.Service;
 
+import com.bearAndPupperCo.sangenWrestlingApp.Security.DTO.LoginRequest;
 import com.bearAndPupperCo.sangenWrestlingApp.Security.Entity.Role;
 import com.bearAndPupperCo.sangenWrestlingApp.Security.Entity.User;
 import org.junit.jupiter.api.Test;
@@ -47,6 +48,21 @@ class UserDetailsTest {
                 .anyMatch(authority -> authority.getAuthority().equals("USER")));
         assertTrue(authorities.stream()
                 .anyMatch(authority -> authority.getAuthority().equals("ADMIN")));
+
+    }
+
+    @Test
+    void testSettersAndGetters() {
+        //Arrange
+        UserDetailsImpl userDetails = new UserDetailsImpl();
+        userDetails.setId(1L);
+
+        //Act & Assert
+        assertEquals(1L, userDetails.getId());
+        assertTrue(userDetails.isAccountNonExpired());
+        assertTrue(userDetails.isEnabled());
+        assertTrue(userDetails.isAccountNonLocked());
+        assertTrue(userDetails.isCredentialsNonExpired());
 
     }
 }
