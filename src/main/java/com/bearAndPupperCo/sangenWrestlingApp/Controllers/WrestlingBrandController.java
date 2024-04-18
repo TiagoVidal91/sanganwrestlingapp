@@ -46,6 +46,4 @@ public class WrestlingBrandController {
         return new ResponseEntity<String>(wrestlingBrandmsg, HttpStatus.OK);
     }
 
-
-
 }

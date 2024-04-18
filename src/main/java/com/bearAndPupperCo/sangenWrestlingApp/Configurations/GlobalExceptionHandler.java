@@ -1,6 +1,7 @@
 package com.bearAndPupperCo.sangenWrestlingApp.Configurations;
 
 import com.bearAndPupperCo.sangenWrestlingApp.Error.CustomError;
+import com.bearAndPupperCo.sangenWrestlingApp.Exception.JwtCookieNotFoundException;
 import com.bearAndPupperCo.sangenWrestlingApp.Exception.WrestlerAlreadyExistsException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
+import static com.bearAndPupperCo.sangenWrestlingApp.APIUtils.MessageConstants.GENERAL_ERROR_MSG;
+import static com.bearAndPupperCo.sangenWrestlingApp.APIUtils.MessageConstants.JWT_COOKIE_NOT_FOUND_MSG;
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -18,8 +22,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<CustomError<String>> handleGenericException(Exception ex, WebRequest request) {
         logError(ex);
-        CustomError<String> error = createCustomError("An error occurred", request, HttpStatus.INTERNAL_SERVER_ERROR, ex,
-                "An error occurred");
+        CustomError<String> error = createCustomError(GENERAL_ERROR_MSG, request, HttpStatus.INTERNAL_SERVER_ERROR, ex,
+                GENERAL_ERROR_MSG);
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -30,7 +34,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.CONFLICT);
     }
 
-    // Add more exception handlers as needed
+    @ExceptionHandler(JwtCookieNotFoundException.class)
+    public ResponseEntity<?> handleJwtCookieNotFoundException(JwtCookieNotFoundException ex, WebRequest request) {
+        logError(ex);
+        CustomError<String> error = createCustomError(ex.getMessage(), request, HttpStatus.CONFLICT, ex, null);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(JWT_COOKIE_NOT_FOUND_MSG);
+    }
 
     private <T extends Throwable> CustomError<String> createCustomError(
             String customMessage, WebRequest request, HttpStatus httpStatus, T ex, String userMessage) {
