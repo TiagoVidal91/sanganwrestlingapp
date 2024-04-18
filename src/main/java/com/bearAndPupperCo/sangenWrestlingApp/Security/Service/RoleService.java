@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.Set;
 
 public interface RoleService {
-    Optional<Role> findByName(String name);
+    Role findByName(String name);
 
     Set<Role> addRolesToUser(Set<String> strRoles);
 }

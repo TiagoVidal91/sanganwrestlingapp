@@ -30,8 +30,8 @@ class RoleServiceTest {
         Set<String> rolesStr = new HashSet<>();
         rolesStr.addAll(Arrays.asList("ADMIN", "USER"));
 
-        Optional<Role> roleAdmin = Optional.of(new Role(1L, "ADMIN"));
-        Optional<Role> roleUser = Optional.of(new Role(2L, "USER"));
+        Role roleAdmin = new Role(1L, "ADMIN");
+        Role roleUser = new Role(2L, "USER");
 
         when(roleRepo.findByName("ADMIN")).thenReturn(roleAdmin);
         when(roleRepo.findByName("USER")).thenReturn(roleUser);
@@ -41,8 +41,8 @@ class RoleServiceTest {
 
         //Assert
         assertEquals(2, rolesReturned.size());
-        assertEquals(roleAdmin, rolesReturned.stream().filter(role -> role.getName().equals("ADMIN")).findFirst());
-        assertEquals(roleUser, rolesReturned.stream().filter(role -> role.getName().equals("USER")).findFirst());
+        assertEquals(Optional.of(roleAdmin), rolesReturned.stream().filter(role -> role.getName().equals("ADMIN")).findFirst());
+        assertEquals(Optional.of(roleUser), rolesReturned.stream().filter(role -> role.getName().equals("USER")).findFirst());
     }
 
     @Test
@@ -51,7 +51,7 @@ class RoleServiceTest {
         Set<String> rolesStr = new HashSet<>();
         rolesStr.add("WRONG_ROLE");
 
-        when(roleRepo.findByName("WRONG_ROLE")).thenReturn(Optional.empty());
+        when(roleRepo.findByName("WRONG_ROLE")).thenReturn(null);
 
         //Act/Assert
         assertThrows(RuntimeException.class, () -> roleService.addRolesToUser(rolesStr));

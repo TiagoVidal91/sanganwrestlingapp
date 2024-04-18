@@ -40,9 +40,16 @@ class WebSecurityConfigTest {
     }
 
     @Test
+    public void testUserAccessUnauthorized() throws Exception {
+        mockMvc.perform(get("/teiai-api/admin/test/test-admin-response"))
+                .andExpect(status().isUnauthorized());
+    }
+    @Test
     public void testUserAccess() throws Exception {
         mockMvc.perform(get("/teiai-api/test/test-server-response"))
                 .andExpect(status().isOk());
     }
+
+
 
 }

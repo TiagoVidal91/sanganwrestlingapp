@@ -20,15 +20,12 @@ public class RoleServiceImpl implements RoleService{
     @Override
     public Set<Role> addRolesToUser(Set<String> strRoles) {
         return strRoles.stream()
-                .map(this::safeFindByName)
+                .map(this::findByName)
                 .collect(Collectors.toSet());
     }
     @Override
-    public Optional<Role> findByName(String name) {
-        return roleRepo.findByName(name);
-    }
-    private Role safeFindByName(String roleStr) {
-        return findByName(roleStr)
+    public Role findByName(String roleStr) {
+        return Optional.ofNullable(roleRepo.findByName(roleStr))
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
     }
 }
