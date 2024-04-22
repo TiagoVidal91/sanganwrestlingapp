@@ -1,24 +1,21 @@
 package com.bearAndPupperCo.sangenWrestlingApp.Controllers;
 
-import com.bearAndPupperCo.sangenWrestlingApp.DTO.WrestlerDTO;
+import com.bearAndPupperCo.sangenWrestlingApp.DTO.WrestlerMainTableDTO;
 import com.bearAndPupperCo.sangenWrestlingApp.Entities.Wrestler;
-import com.bearAndPupperCo.sangenWrestlingApp.Entities.WrestlingBrand;
+import com.bearAndPupperCo.sangenWrestlingApp.Pagination.PaginatedResponse;
 import com.bearAndPupperCo.sangenWrestlingApp.Services.WrestlerSrv;
 import com.google.gson.Gson;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.google.gson.GsonBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/teiai-api/wrestler")
 public class WrestlerController {
 
     private final Gson gson;
-
     private final WrestlerSrv wrestlerSrv;
 
     public WrestlerController(Gson gson, WrestlerSrv wrestlerSrv) {
@@ -37,8 +34,13 @@ public class WrestlerController {
             @RequestParam(name = "pageNumber") int page,
             @RequestParam(name = "pageSize") int size,
             @RequestParam(name = "brandId", required = false) Integer brandId,
-            @RequestParam(name = "lockerId", required = false) Integer lockerId){
-        String wrestlerMsg = gson.toJson(wrestlerSrv.findAllWrestlersByParams(page, size, brandId, lockerId));
-        return new ResponseEntity<>(wrestlerMsg, HttpStatus.OK);
+            @RequestParam(name = "lockerId", required = false) Integer lockerId,
+            @RequestParam(name = "order", required = false) String order
+    ){
+        PaginatedResponse<WrestlerMainTableDTO> wrestlerListPage =
+                wrestlerSrv.findAllWrestlersByParams(page, size, brandId, lockerId, order);
+
+        String response = gson.toJson(wrestlerListPage);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
