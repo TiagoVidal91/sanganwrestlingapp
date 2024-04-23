@@ -12,7 +12,6 @@ const TeiaiTable = ({tableData, tableHeaders, objectFields, numberPages, onOrder
             return (  
                 <th 
                     key={header+index} 
-                    className={``}
                     onClick={(e) => onOrderIconClick(e, objectFields[index])}
                 >
                     <div className={`tableHeader`}>
@@ -44,6 +43,19 @@ const TeiaiTable = ({tableData, tableHeaders, objectFields, numberPages, onOrder
     //TABLE PAGINATION
     const [activePage, setActivePage] = useState(1);
     const [paginationState, setPaginationState] = useState({left: false, right: false});
+
+    useEffect(() => {
+		let left = false;
+		let right = false;
+		if (activePage == 1) {
+			left = true;
+		}
+		if (activePage == numberPages) {
+			right = true;
+		}
+		setPaginationState({ left: left, right: right });
+	}, [activePage, numberPages]);
+
     const pagesRow = () => { 
         let items = [];
         for (let number = 1; number <= numberPages; number++) {
@@ -79,35 +91,20 @@ const TeiaiTable = ({tableData, tableHeaders, objectFields, numberPages, onOrder
     const tablePagination = () => {
         return (
             <div className="paginationRow">
-                <h6 className="paginationText">
-                    Page {activePage}/{numberPages}
-                </h6>
-                {pagesRow()}
                 <div className="paginationArrows">
                     <i
-                        className={`paginationArrows bi bi-arrow-left ${paginationState.left? "disabledArrow" : ""} ` }
+                        className={`paginationArrows bi bi-arrow-left ${paginationState.left? "disabledArrow" : ""}` }
                         onClick={() => onPaginationPrev(activePage)}
                     ></i>
+                    {pagesRow()}
                     <i
-                        className={`paginationArrows bi bi-arrow-right ${paginationState.right? "disabledArrow" : ""} ` }
+                        className={`paginationArrows bi bi-arrow-right ${paginationState.right? "disabledArrow" : ""}` }
                         onClick={() => onPaginationNext(activePage)}
                     ></i>
                 </div>
             </div>
         )
     }
-
-    useEffect(() => {
-		let left = false;
-		let right = false;
-		if (activePage == 1) {
-			left = true;
-		}
-		if (activePage == numberPages) {
-			right = true;
-		}
-		setPaginationState({ left: left, right: right });
-	}, [activePage, numberPages]);
 
     //COLUMN ORDER
     const [orderBy, setOrderBy] = useState({ order: "", column: "" });
@@ -126,11 +123,13 @@ const TeiaiTable = ({tableData, tableHeaders, objectFields, numberPages, onOrder
 
     return (
         <>
-            <table className={`teiaiTable`}>
-                <thead>{tableHeader()}</thead>
-                <tbody>{tableBody()}</tbody>
-            </table>
-            {tablePagination()}
+            <div className={`teiaiTableWrapper`}>
+                <table className={`teiaiTable`}>
+                    <thead>{tableHeader()}</thead>
+                    <tbody>{tableBody()}</tbody>
+                </table>
+            </div>
+                {tablePagination()}
         </>
     )      
 }

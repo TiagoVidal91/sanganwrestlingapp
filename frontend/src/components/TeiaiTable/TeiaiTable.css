@@ -1,7 +1,15 @@
+.teiaiTableWrapper{
+    overflow-x: auto;
+}
 .teiaiTable {
     table-layout: auto;
-    width: 100%;
     display: table;
+    width: 100%;
+    min-width: 60rem;
+    max-width: 100rem;
+    margin: 0 auto;
+    white-space: nowrap;
+    justify-self: center;
 }
 
 .tableHeader {
@@ -24,7 +32,7 @@
 .paginationRow {
     display: inline-flex;
     align-items: baseline;
-    margin: 0.5rem 0 0 1rem;
+    margin: 0.5rem 1rem;
 }
 
 .activePage,

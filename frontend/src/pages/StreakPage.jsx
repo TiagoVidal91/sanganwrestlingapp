@@ -28,7 +28,7 @@ const StreakPage = () => {
     return (
         <>
             <h1>Score!!!!</h1>
-            <TeiaiTable tableData={tableData} tableHeaders={headers} objectFields={objectFields} id={"streakTable"} numberPages={5} onOrderChange={onOrderChange}/>
+            <TeiaiTable tableData={tableData} tableHeaders={headers} objectFields={objectFields} id={"streakTable"} numberPages={10} onOrderChange={onOrderChange}/>
         </>
     )
 }
