@@ -24,9 +24,9 @@ public class WrestlerRepoImpl implements WrestlerRepo{
     }
 
     @Override
-    public List<WrestlerMainTableDTO> findWrestlerListByParams(Pageable pageable, Integer brandId, Integer lockerRoomId,
+    public List<WrestlerMainTableDTO> findWrestlerListByParams(Integer pageNumber, Integer pageSize, Integer brandId, Integer lockerRoomId,
                                                                String orderBy, String orderDirection) {
-        int offset = (pageable.getPageNumber() - 1) * pageable.getPageSize();
+        int offset = (pageNumber - 1) * pageSize;
 
         String sql = "SELECT " +
                 "w.in_ring_name, " +
@@ -70,7 +70,7 @@ public class WrestlerRepoImpl implements WrestlerRepo{
                 handle.createQuery(sql)
                         .bind("brandId", brandId)
                         .bind("lockerRoomId", lockerRoomId)
-                        .bind("pageSize", pageable.getPageSize())
+                        .bind("pageSize", pageSize)
                         .bind("offset", offset)
                         .map(new WrestlerMainTableDTOMapper())
                         .list()

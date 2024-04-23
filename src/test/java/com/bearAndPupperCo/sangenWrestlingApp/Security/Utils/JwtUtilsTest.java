@@ -58,12 +58,15 @@ class JwtUtilsTest {
     }
 
     @Test
-    public void testGetJwtFromCookiesThrowsExceptionTest() {
+    public void testGetJwtFromCookiesReturnsNullTest() {
         // Arrange
         MockHttpServletRequest request = new MockHttpServletRequest();
 
+        //Act
+        String cookieValueReturned = jwtUtils.getJwtFromCookies(request);
+
         // Act and Assert
-        assertThrows(JwtCookieNotFoundException.class, () -> jwtUtils.getJwtFromCookies(request));
+        assertNull(cookieValueReturned);
     }
 
     @Test
@@ -115,10 +118,18 @@ class JwtUtilsTest {
     @Test
     void getUserNameFromJwtTokenTest() {
         //Assert
-        String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJUZXN0VXNlciIsInJvbGVzIjpbImNvbS5iZWFyQW5kUHVwcGVyQ28uc2FuZ2VuV3" +
-                "Jlc3RsaW5nQXBwLlNlY3VyaXR5LkVudGl0eS5Sb2xlQDQyZTIyYTUzIiwiY29tLmJlYXJBbmRQdXBwZXJDby5zYW5nZW5XcmVzdGxpbmd" +
-                "BcHAuU2VjdXJpdHkuRW50aXR5LlJvbGVANTdhZGZhYjAiXSwiZXhwIjoxNzEzNjY3NDQ5LCJpYXQiOjE3MTMzNTIwODl9.AZ8GmhlpFO" +
-                "7DSmf5YTyDsY0YYd0LTxPEI0f35kw20PBEWHPxMyMqOEASa4S5R91L6DJtldhKhP3EuCCk6k6ySQ";
+        Role roleAdmin = new Role(1L, "ADMIN");
+        Role roleUser = new Role(2L, "USER");
+        Set<Role> roles = new HashSet<>(Arrays.asList(roleUser, roleAdmin));
+        Collection<String> roleNames = roles.stream()
+                .map(Role::toString).toList();
+
+        Collection<? extends GrantedAuthority> authorities =
+                AuthorityUtils.createAuthorityList(roleNames.toArray(new String[0]));
+
+        UserDetailsImpl userDetails = new UserDetailsImpl("TestUser",authorities);
+
+        String token = jwtUtils.generateTokenFromUser(userDetails);
 
         //Act
         String username = jwtUtils.getUserNameFromJwtToken(token);
@@ -131,10 +142,18 @@ class JwtUtilsTest {
     @Test
     void validateJwtTokenTest() {
         //Assert
-        String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJUZXN0VXNlciIsInJvbGVzIjpbImNvbS5iZWFyQW5kUHVwcGVyQ28uc2FuZ2VuV3" +
-                "Jlc3RsaW5nQXBwLlNlY3VyaXR5LkVudGl0eS5Sb2xlQDQyZTIyYTUzIiwiY29tLmJlYXJBbmRQdXBwZXJDby5zYW5nZW5XcmVzdGxpbmd" +
-                "BcHAuU2VjdXJpdHkuRW50aXR5LlJvbGVANTdhZGZhYjAiXSwiZXhwIjoxNzEzNjY3NDQ5LCJpYXQiOjE3MTMzNTIwODl9.AZ8GmhlpFO" +
-                "7DSmf5YTyDsY0YYd0LTxPEI0f35kw20PBEWHPxMyMqOEASa4S5R91L6DJtldhKhP3EuCCk6k6ySQ";
+        Role roleAdmin = new Role(1L, "ADMIN");
+        Role roleUser = new Role(2L, "USER");
+        Set<Role> roles = new HashSet<>(Arrays.asList(roleUser, roleAdmin));
+        Collection<String> roleNames = roles.stream()
+                .map(Role::toString).toList();
+
+        Collection<? extends GrantedAuthority> authorities =
+                AuthorityUtils.createAuthorityList(roleNames.toArray(new String[0]));
+
+        UserDetailsImpl userDetails = new UserDetailsImpl("TestUser",authorities);
+
+        String token = jwtUtils.generateTokenFromUser(userDetails);
 
         //Act
         boolean isValidToken = jwtUtils.validateJwtToken(token);
