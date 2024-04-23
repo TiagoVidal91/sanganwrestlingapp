@@ -1,20 +1,51 @@
-.streakTable{
-    user-select: none;
+.teiaiTableWrapper{
+    overflow-x: auto;
+}
+.teiaiTable {
+    table-layout: auto;
+    display: table;
+    width: 100%;
+    min-width: 60rem;
+    max-width: 100rem;
+    margin: 0 auto;
+    white-space: nowrap;
+    justify-self: center;
 }
 
-.teiaiTablePagination{
-    user-select: none;
+.tableHeader {
+    white-space: nowrap;
+    display: inline-flex;
+    min-width: fit-content;
 }
 
-.activePage .page-link{
-    background-color:blue !important;
-    color: white !important;
+.headerText {
+    width: fit-content;
+}
+  
+
+.tableBody {
+    width: fit-content;
+    white-space: nowrap;
 }
 
+/* Pagination */
+.paginationRow {
+    display: inline-flex;
+    align-items: baseline;
+    margin: 0.5rem 1rem;
+}
+
+.activePage,
+.disabledArrow {
+    color: red;
+    cursor: not-allowed;
+}
 .paginationIcons {
     margin-left: 5%
 }
-
-.teiaiTableWidth {
-    width: 80%
+.pagesRow {
+    display: inline-flex;
+}
+.paginationItem {
+    margin: 0 0.1rem;
 }
