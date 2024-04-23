@@ -24,7 +24,8 @@ public class WrestlerRepoImpl implements WrestlerRepo{
     }
 
     @Override
-    public List<WrestlerMainTableDTO> findWrestlerListByParams(Pageable pageable, Integer brandId, Integer lockerRoomId) {
+    public List<WrestlerMainTableDTO> findWrestlerListByParams(Pageable pageable, Integer brandId, Integer lockerRoomId,
+                                                               String orderBy, String orderDirection) {
         int offset = (pageable.getPageNumber() - 1) * pageable.getPageSize();
 
         String sql = "SELECT " +
@@ -62,6 +63,7 @@ public class WrestlerRepoImpl implements WrestlerRepo{
                 "wb.wrestling_brand_name, " +
                 "lr.wrestling_locker_room_id, " +
                 "lr.wrestling_locker_room_name " +
+                "ORDER BY " + orderBy + " " + orderDirection + " " +
                 "LIMIT :pageSize OFFSET :offset";
 
         return jdbi.withHandle(handle ->

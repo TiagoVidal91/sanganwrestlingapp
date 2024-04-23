@@ -1,8 +1,11 @@
 package com.bearAndPupperCo.sangenWrestlingApp.Services;
 
+import com.bearAndPupperCo.sangenWrestlingApp.APIUtils.ValidationUtils;
 import com.bearAndPupperCo.sangenWrestlingApp.DTO.WrestlerMainTableDTO;
 import com.bearAndPupperCo.sangenWrestlingApp.Entities.Wrestler;
+import com.bearAndPupperCo.sangenWrestlingApp.Enum.WrestlerMainTableEnum;
 import com.bearAndPupperCo.sangenWrestlingApp.Exception.WrestlerAlreadyExistsException;
+import com.bearAndPupperCo.sangenWrestlingApp.Exception.WrongParamException;
 import com.bearAndPupperCo.sangenWrestlingApp.Pagination.PaginatedResponse;
 import com.bearAndPupperCo.sangenWrestlingApp.Repository.WrestlerRepo;
 import org.modelmapper.ModelMapper;
@@ -16,6 +19,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.bearAndPupperCo.sangenWrestlingApp.APIUtils.MessageConstants.WRONG_PARAM_MSG;
 
 @Service
 public class WrestlerServiceImpl implements WrestlerSrv{
@@ -39,10 +44,19 @@ public class WrestlerServiceImpl implements WrestlerSrv{
 
     @Override
     public PaginatedResponse<WrestlerMainTableDTO> findAllWrestlersByParams(int page, int size, Integer brandId, Integer lockerId,
-                                                                            String orderBy) {
+                                                                            String orderBy, String orderDirection) {
+
+
+        if (!ValidationUtils.validateOrderDirection(orderDirection)){
+            throw new WrongParamException(WRONG_PARAM_MSG);
+        }
+
+        String orderByColumn = WrestlerMainTableEnum.getColumnName(orderBy);
+
         Pageable pageable = PageRequest.of(page, size);
 
-        List<WrestlerMainTableDTO> wrestlerList = wrestlerRepo.findWrestlerListByParams(pageable, brandId, lockerId);
+        List<WrestlerMainTableDTO> wrestlerList = wrestlerRepo.findWrestlerListByParams(pageable, brandId, lockerId,
+                orderByColumn, orderDirection);
 
         int totalWrestlers = wrestlerRepo.getTotalWrestlerCount(brandId, lockerId);
 

@@ -17,9 +17,8 @@ public interface WrestlerRepo {
     /*@Query(value = "SELECT * FROM wrestler w " +
             "WHERE (:brandId IS NULL OR w.wrestling_brand_Id = :brandId) " +
             "AND (:lockerRoomId IS NULL OR w.wrestling_locker_room_id = :lockerRoomId)", nativeQuery = true)*/
-    List<WrestlerMainTableDTO> findWrestlerListByParams(Pageable pageable, Integer brandId, Integer lockerRoomId
-                                                //String orderBy, String order
-    );
+    List<WrestlerMainTableDTO> findWrestlerListByParams(Pageable pageable, Integer brandId, Integer lockerRoomId,
+                                                String orderBy, String orderDirection);
     int getTotalWrestlerCount(Integer brandId, Integer lockerRoomId);
 
 

@@ -35,10 +35,11 @@ public class WrestlerController {
             @RequestParam(name = "pageSize") int size,
             @RequestParam(name = "brandId", required = false) Integer brandId,
             @RequestParam(name = "lockerId", required = false) Integer lockerId,
-            @RequestParam(name = "order", required = false) String order
+            @RequestParam(name = "order", required = true) String order,
+            @RequestParam(name = "orderDirection", required = true) String orderDirection
     ){
         PaginatedResponse<WrestlerMainTableDTO> wrestlerListPage =
-                wrestlerSrv.findAllWrestlersByParams(page, size, brandId, lockerId, order);
+                wrestlerSrv.findAllWrestlersByParams(page, size, brandId, lockerId, order, orderDirection);
 
         String response = gson.toJson(wrestlerListPage);
         return new ResponseEntity<>(response, HttpStatus.OK);

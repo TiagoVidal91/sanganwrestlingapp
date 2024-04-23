@@ -3,6 +3,7 @@ package com.bearAndPupperCo.sangenWrestlingApp.Configurations;
 import com.bearAndPupperCo.sangenWrestlingApp.Error.CustomError;
 import com.bearAndPupperCo.sangenWrestlingApp.Exception.JwtCookieNotFoundException;
 import com.bearAndPupperCo.sangenWrestlingApp.Exception.WrestlerAlreadyExistsException;
+import com.bearAndPupperCo.sangenWrestlingApp.Exception.WrongParamException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -11,8 +12,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
-import static com.bearAndPupperCo.sangenWrestlingApp.APIUtils.MessageConstants.GENERAL_ERROR_MSG;
-import static com.bearAndPupperCo.sangenWrestlingApp.APIUtils.MessageConstants.JWT_COOKIE_NOT_FOUND_MSG;
+import static com.bearAndPupperCo.sangenWrestlingApp.APIUtils.MessageConstants.*;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -39,6 +39,13 @@ public class GlobalExceptionHandler {
         logError(ex);
         CustomError<String> error = createCustomError(ex.getMessage(), request, HttpStatus.CONFLICT, ex, null);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(JWT_COOKIE_NOT_FOUND_MSG);
+    }
+
+    @ExceptionHandler(WrongParamException.class)
+    public ResponseEntity<?> handleWrongParamException(WrongParamException ex, WebRequest request) {
+        logError(ex);
+        CustomError<String> error = createCustomError(ex.getMessage(), request, HttpStatus.EXPECTATION_FAILED, ex, null);
+        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(WRONG_PARAM_MSG);
     }
 
     private <T extends Throwable> CustomError<String> createCustomError(
