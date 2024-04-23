@@ -7,6 +7,7 @@ const StreakPage = () => {
     var headers= ["Name", "Brand", "Locker room", "Wins", "Loses", "Matches Total", "Percentage Win", "Streak"];
     var objectFields=  ["inRingName", "brandId", "lockerId", "numberOfWins", "numberOfLosses", "numberOfMatches", "percentageOfWins", "wrestlingStreak"];
     const [tableData, setTableData] = useState([]);
+
     useEffect(() => {
         var filteredData = filterData(data.content, objectFields);
         setTableData(filteredData);
