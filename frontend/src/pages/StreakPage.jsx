@@ -16,7 +16,7 @@ const StreakPage = () => {
         e.preventDefault();
         //TEST
        let sortedData;
-        if(order==="asc"){
+        if(order==="ASC"){
             sortedData = tableData.sort();
         } else {
             sortedData = tableData.reverse();
@@ -28,7 +28,7 @@ const StreakPage = () => {
     return (
         <>
             <h1>Score!!!!</h1>
-            <TeiaiTable tableData={tableData} tableHeaders={headers} objectFields={objectFields} id={"streakTable"} numberPages={data.totalPages} onOrderChange={onOrderChange}/>
+            <TeiaiTable tableData={tableData} tableHeaders={headers} objectFields={objectFields} id={"streakTable"} numberPages={5} onOrderChange={onOrderChange}/>
         </>
     )
 }
