@@ -32,23 +32,12 @@ class WrestlerServiceImplTest {
     @Mock
     ValidationUtils validationUtils;
 
-    private int page;
+    private int page = 1;
     private int size = 10;
     private int brandId = 1;
     private int lockerId = 1;
     private String order = "NAME";
     private String orderDirection = "ASC";
-
-
-    @BeforeEach
-    void setUp(){
-        page = 1;
-        size = 10;
-        brandId = 1;
-        lockerId = 1;
-        order = "NAME";
-        orderDirection = "ASC";
-    }
 
     @Test
     void findAllWrestlersByParamsTest() {
