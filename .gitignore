@@ -34,3 +34,6 @@ build/
 
 ### Application Propreties ###
 /src/main/resources/application.properties
+
+### Resources for Testing ###
+/src/test/resources

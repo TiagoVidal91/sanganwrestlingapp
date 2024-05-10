@@ -28,42 +28,67 @@ public class WrestlerRepoImpl implements WrestlerRepo{
                                                                String orderBy, String orderDirection) {
         int offset = (pageNumber - 1) * pageSize;
 
-        String sql = "SELECT " +
-                "w.in_ring_name, " +
-                "w.wrestling_streak, " +
-                "wb.wrestling_brand_id, " +
-                "wb.wrestling_brand_name, " +
-                "lr.wrestling_locker_room_id," +
-                "lr.wrestling_locker_room_name, " +
-                "COALESCE(COUNT(DISTINCT mv.winner_wrestler_id), 0) AS total_victories, " +
-                "COALESCE(COUNT(DISTINCT ml.loser_wrestler_id), 0) AS total_losses, " +
-                "IFNULL(" +
-                "        ROUND( " +
-                "            (COALESCE(COUNT(DISTINCT mv.winner_wrestler_id), 0) * 100.0) / " +
-                "            NULLIF((COALESCE(COUNT(DISTINCT mv.winner_wrestler_id), 0) + COALESCE(COUNT(DISTINCT ml.loser_wrestler_id), 0)), 0), " +
-                "            2), " +
-                "    0) AS percentage_of_victories " +
+        String sql = "WITH Victories AS (" +
+                "    SELECT " +
+                "        winner_wrestler_id, " +
+                "        COUNT(*) AS victory_count" +
+                "    FROM " +
+                "        wrestler_match_victories" +
+                "    GROUP BY " +
+                "        winner_wrestler_id" +
+                ")," +
+                "Losses AS (" +
+                "    SELECT " +
+                "        loser_wrestler_id, " +
+                "        COUNT(*) AS loss_count" +
+                "    FROM " +
+                "        wrestler_match_losses" +
+                "    GROUP BY " +
+                "        loser_wrestler_id" +
+                ")" +
+                "SELECT " +
+                "    w.in_ring_name, " +
+                "    w.wrestling_streak, " +
+                "    wb.wrestling_brand_id, " +
+                "    wb.wrestling_brand_name, " +
+                "    lr.wrestling_locker_room_id," +
+                "    lr.wrestling_locker_room_name, " +
+                "    COALESCE(v.victory_count, 0) AS total_victories, " +
+                "    COALESCE(l.loss_count, 0) AS total_losses, " +
+                "    CASE " +
+                "        WHEN v.victory_count > 0 THEN " +
+                "            ROUND(" +
+                "                (v.victory_count * 100.0) / " +
+                "                (v.victory_count + " +
+                "                (CASE WHEN l.loss_count IS NULL THEN 0 ELSE l.loss_count END)), " +
+                "                2" +
+                "            ) " +
+                "        ELSE " +
+                "            0 " +
+                "    END AS percentage_of_victories " +
                 "FROM " +
-                "wrestler w " +
+                "    wrestler w " +
                 "JOIN " +
-                "wrestling_brand wb ON w.wrestling_brand_id = wb.wrestling_brand_id " +
+                "    wrestling_brand wb ON w.wrestling_brand_id = wb.wrestling_brand_id " +
                 "JOIN " +
-                "locker_room lr ON w.wrestling_locker_room_id = lr.wrestling_locker_room_id " +
+                "    locker_room lr ON w.wrestling_locker_room_id = lr.wrestling_locker_room_id " +
                 "LEFT JOIN " +
-                "wrestler_match_victories mv ON w.wrestler_id = mv.winner_wrestler_id " +
+                "    Victories v ON w.wrestler_id = v.winner_wrestler_id " +
                 "LEFT JOIN " +
-                "wrestler_match_losses ml ON w.wrestler_id = ml.loser_wrestler_id " +
+                "    Losses l ON w.wrestler_id = l.loser_wrestler_id " +
                 "WHERE " +
-                "(:brandId IS NULL OR w.wrestling_brand_Id = :brandId) " +
-                "AND (:lockerRoomId IS NULL OR w.wrestling_locker_room_id = :lockerRoomId) " +
+                "    (:brandId IS NULL OR w.wrestling_brand_Id = :brandId) " +
+                "    AND (:lockerRoomId IS NULL OR w.wrestling_locker_room_id = :lockerRoomId) " +
                 "GROUP BY " +
-                "w.in_ring_name, " +
-                "w.wrestling_streak, " +
-                "wb.wrestling_brand_id, " +
-                "wb.wrestling_brand_name, " +
-                "lr.wrestling_locker_room_id, " +
-                "lr.wrestling_locker_room_name " +
-                "ORDER BY " + orderBy + " " + orderDirection + " " +
+                "    w.in_ring_name, " +
+                "    w.wrestling_streak, " +
+                "    wb.wrestling_brand_id, " +
+                "    wb.wrestling_brand_name, " +
+                "    lr.wrestling_locker_room_id, " +
+                "    lr.wrestling_locker_room_name, " +
+                "    v.victory_count, " +
+                "    l.loss_count " +
+                "ORDER BY " + orderBy + " " + orderDirection + ", in_ring_name ASC " +
                 "LIMIT :pageSize OFFSET :offset";
 
         return jdbi.withHandle(handle ->

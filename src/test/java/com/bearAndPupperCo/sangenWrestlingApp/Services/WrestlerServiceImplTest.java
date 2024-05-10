@@ -67,6 +67,20 @@ class WrestlerServiceImplTest {
     }
 
     @Test
+    void wrongOrderTypeTest() {
+
+        //Arrange
+        order= "WRONG_ORDER_TYPE";
+
+        //Act & Assert
+        String message = assertThrows(WrongParamException.class, () -> wrestlerService
+                .findAllWrestlersByParams(page,size,brandId,lockerId,order,orderDirection)).getMessage();
+        assertEquals(message, WRONG_PARAM_MSG);
+
+        verify(validationUtils,times(1)).validateOrderDirection(orderDirection);
+    }
+
+    @Test
     void wrongOrderDirectionTest() {
 
         //Arrange
@@ -76,6 +90,7 @@ class WrestlerServiceImplTest {
         String message = assertThrows(WrongParamException.class, () -> wrestlerService
                 .findAllWrestlersByParams(page,size,brandId,lockerId,order,orderDirection)).getMessage();
         assertEquals(message, WRONG_PARAM_MSG);
-        verify(validationUtils,times(1)).validateOrderDirection(orderDirection);
+
+        verify(validationUtils, times(1)).validateOrderDirection(orderDirection);
     }
 }

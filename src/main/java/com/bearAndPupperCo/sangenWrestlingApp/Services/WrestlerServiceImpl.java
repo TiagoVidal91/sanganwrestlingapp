@@ -24,7 +24,7 @@ public class WrestlerServiceImpl implements WrestlerSrv{
         this.wrestlerRepo = wrestlerRepo;
         this.validationUtils = validationUtils;
     }
-
+    //TODO - Change to adapt to JDBI instead of JPA
     @Override
     public Wrestler addNewWrestler(Wrestler wrestler) {
         //verifyIfWrestlerExists(wrestler);
@@ -36,11 +36,17 @@ public class WrestlerServiceImpl implements WrestlerSrv{
     @Override
     public PaginatedResponse<WrestlerMainTableDTO> findAllWrestlersByParams(int page, int size, Integer brandId, Integer lockerId,
                                                                             String orderBy, String orderDirection) {
+        String orderByColumn;
+
         if (!validationUtils.validateOrderDirection(orderDirection)){
             throw new WrongParamException(WRONG_PARAM_MSG);
         }
 
-        String orderByColumn = WrestlerMainTableEnum.getColumnName(orderBy);
+        try {
+            orderByColumn = WrestlerMainTableEnum.getColumnName(orderBy);
+        } catch (Exception e){
+            throw new WrongParamException(WRONG_PARAM_MSG);
+        }
 
         List<WrestlerMainTableDTO> wrestlerList = wrestlerRepo.findWrestlerListByParams(page, size, brandId, lockerId,
                 orderByColumn, orderDirection);
@@ -51,6 +57,7 @@ public class WrestlerServiceImpl implements WrestlerSrv{
         return new PaginatedResponse<>(wrestlerList, page, size, totalWrestlers, totalPages);
     }
 
+    //TODO - Change to adapt to JDBI instead of JPA
     /*private void verifyIfWrestlerExists(Wrestler wrestler){
         if(!wrestlerRepo.findWrestlerByInRingName(wrestler.getInRingName()).isEmpty()){
             throw new WrestlerAlreadyExistsException("The wrestler already exists on the Database",
