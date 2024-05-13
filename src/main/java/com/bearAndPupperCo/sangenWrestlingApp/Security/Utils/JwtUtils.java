@@ -47,7 +47,7 @@ public class JwtUtils {
                 }
             }
         }
-        throw new JwtCookieNotFoundException(JWT_COOKIE_NOT_FOUND_MSG);
+        return null;
     }
 
     public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {

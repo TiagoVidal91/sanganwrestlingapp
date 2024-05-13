@@ -1,41 +1,33 @@
 package com.bearAndPupperCo.sangenWrestlingApp.DTO;
 
 
+import com.bearAndPupperCo.sangenWrestlingApp.Entities.LockerRoom;
+import com.bearAndPupperCo.sangenWrestlingApp.Entities.WrestlingBrand;
 import com.bearAndPupperCo.sangenWrestlingApp.Entities.WrestlingTitle;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
 
 @Getter
 @Setter
-public class WrestlerDTO {
-
-    private Long wrestlerId;
-
-    private String wrestlerName;
+@AllArgsConstructor
+@NoArgsConstructor
+public class WrestlerMainTableDTO {
 
     private String inRingName;
 
-    private List<String> nicknames;
+    private LockerRoom lockerRoom;
 
-    private List<String> signatureMoves;
-
-    private List<String> finishers;
-
-    private Long brandId;
-
-    private Long lockerId;
+    private WrestlingBrand brand;
 
     private Integer numberOfWins;
 
     private Integer numberOfLosses;
 
-    private Integer numberOfMatches;
-
     private Integer wrestlingStreak;
-
-    private List<WrestlingTitle> wrestlingTitleList;
 
     private double percentageOfWins;
 
