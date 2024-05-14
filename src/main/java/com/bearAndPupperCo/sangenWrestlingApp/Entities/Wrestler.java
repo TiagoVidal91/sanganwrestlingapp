@@ -17,11 +17,26 @@ public class Wrestler {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long wrestlerId;
 
-    @Column(columnDefinition = "VARCHAR(255)")
+    @Column(columnDefinition = "VARCHAR(100)")
     private String wrestlerName;
 
-    @Column(columnDefinition = "VARCHAR(255)")
+    @Column(columnDefinition = "VARCHAR(100)")
     private String inRingName;
+
+    @Column
+    private Integer age;
+
+    @Column(columnDefinition = "VARCHAR(100)")
+    private String hometown;
+
+    @Column(columnDefinition = "VARCHAR(10)")
+    private String weight;
+
+    @Column(columnDefinition = "VARCHAR(10)")
+    private String height;
+
+    @Column(columnDefinition = "VARCHAR(255)")
+    private String periodOfArrival;
 
     @ElementCollection
     @CollectionTable(name="nicknames", joinColumns=@JoinColumn(name="wrestler_Id"))
