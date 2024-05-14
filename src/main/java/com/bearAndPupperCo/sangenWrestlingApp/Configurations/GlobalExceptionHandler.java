@@ -30,7 +30,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(WrestlerAlreadyExistsException.class)
     public ResponseEntity<CustomError<String>> handleWrestlerAlreadyExistsException(WrestlerAlreadyExistsException ex, WebRequest request) {
         logError(ex);
-        CustomError<String> error = createCustomError(ex.getMessage(), request, HttpStatus.CONFLICT, ex, ex.getUserMessage());
+        CustomError<String> error = createCustomError(ex.getMessage(), request, HttpStatus.CONFLICT, ex, null);
         return new ResponseEntity<>(error, HttpStatus.CONFLICT);
     }
 

@@ -49,7 +49,6 @@ class WrestlerServiceImplTest {
         List<WrestlerMainTableDTO> wrestlerList = new ArrayList<>(Arrays.asList(wrestler1, wrestler2));
         String orderBy = WrestlerMainTableEnum.getColumnName(order);
 
-        when(validationUtils.validateOrderDirection(orderDirection)).thenReturn(true);
         when(wrestlerRepo.findWrestlerListByParams(page,size,brandId,lockerId,orderBy,orderDirection))
                 .thenReturn(wrestlerList);
         when(wrestlerRepo.getTotalWrestlerCount(brandId,lockerId)).thenReturn(wrestlerList.size());

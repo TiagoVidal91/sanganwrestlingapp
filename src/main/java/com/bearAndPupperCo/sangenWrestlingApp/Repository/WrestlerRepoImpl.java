@@ -1,5 +1,6 @@
 package com.bearAndPupperCo.sangenWrestlingApp.Repository;
 
+import com.bearAndPupperCo.sangenWrestlingApp.DTO.SingleWrestlerDTO;
 import com.bearAndPupperCo.sangenWrestlingApp.DTO.WrestlerMainTableDTO;
 import com.bearAndPupperCo.sangenWrestlingApp.Entities.Wrestler;
 import com.bearAndPupperCo.sangenWrestlingApp.Mappers.WrestlerMainTableDTOMapper;
@@ -20,6 +21,11 @@ public class WrestlerRepoImpl implements WrestlerRepo{
 
     @Override
     public List<Wrestler> findWrestlerByInRingName(String ringName) {
+        return null;
+    }
+
+    @Override
+    public SingleWrestlerDTO addNewWrestler(SingleWrestlerDTO wrestlerDTO) {
         return null;
     }
 

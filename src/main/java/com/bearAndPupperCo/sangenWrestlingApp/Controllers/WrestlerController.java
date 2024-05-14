@@ -1,5 +1,6 @@
 package com.bearAndPupperCo.sangenWrestlingApp.Controllers;
 
+import com.bearAndPupperCo.sangenWrestlingApp.DTO.SingleWrestlerDTO;
 import com.bearAndPupperCo.sangenWrestlingApp.DTO.WrestlerMainTableDTO;
 import com.bearAndPupperCo.sangenWrestlingApp.Entities.Wrestler;
 import com.bearAndPupperCo.sangenWrestlingApp.Pagination.PaginatedResponse;
@@ -13,32 +14,29 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/teiai-api/wrestler")
 public class WrestlerController {
 
-    private final Gson gson;
     private final WrestlerSrv wrestlerSrv;
 
-    public WrestlerController(Gson gson, WrestlerSrv wrestlerSrv) {
-        this.gson = gson;
+    public WrestlerController(WrestlerSrv wrestlerSrv) {
         this.wrestlerSrv = wrestlerSrv;
     }
 
     @PostMapping(value = "/addNewWrestler")
-    public ResponseEntity<?> addNewWrestlingBrand(@RequestBody Wrestler wrestler){
-        Wrestler savedWrestler = wrestlerSrv.addNewWrestler(wrestler);
-        return new ResponseEntity<>(wrestler, HttpStatus.CREATED);
+    public ResponseEntity<?> addNewWrestlingBrand(@RequestBody SingleWrestlerDTO wrestlerDTO){
+        SingleWrestlerDTO savedWrestler = wrestlerSrv.addNewWrestler(wrestlerDTO);
+        return new ResponseEntity<>(savedWrestler, HttpStatus.CREATED);
     }
     @GetMapping(value = "/findAllWrestlersByParam")
-    public ResponseEntity<String> findAllWrestlersByParams(
+    public ResponseEntity<?> findAllWrestlersByParams(
             @RequestParam(name = "pageNumber") int page,
             @RequestParam(name = "pageSize") int size,
             @RequestParam(name = "brandId", required = false) Integer brandId,
             @RequestParam(name = "lockerId", required = false) Integer lockerId,
-            @RequestParam(name = "order", required = true) String order,
-            @RequestParam(name = "orderDirection", required = true) String orderDirection
+            @RequestParam(name = "order") String order,
+            @RequestParam(name = "orderDirection") String orderDirection
     ){
         PaginatedResponse<WrestlerMainTableDTO> wrestlerListPage =
                 wrestlerSrv.findAllWrestlersByParams(page, size, brandId, lockerId, order, orderDirection);
 
-        String response = gson.toJson(wrestlerListPage);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(wrestlerListPage, HttpStatus.OK);
     }
 }
