@@ -5,13 +5,11 @@ import com.bearAndPupperCo.sangenWrestlingApp.Entities.Wrestler;
 import com.bearAndPupperCo.sangenWrestlingApp.Pagination.PaginatedResponse;
 import com.bearAndPupperCo.sangenWrestlingApp.Services.WrestlerSrv;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/teiai-api/wrestler")
 public class WrestlerController {
 
@@ -23,11 +21,10 @@ public class WrestlerController {
         this.wrestlerSrv = wrestlerSrv;
     }
 
-    @PostMapping(value = "/addWrestler")
-    public ResponseEntity<String> addNewWrestlingBrand(@RequestBody String wrestlerInfo){
-        Wrestler wrestler = gson.fromJson(wrestlerInfo, Wrestler.class);
-        String wrestlerMsg = gson.toJson(wrestlerSrv.addNewWrestler(wrestler));
-        return new ResponseEntity<>(wrestlerMsg, HttpStatus.OK);
+    @PostMapping(value = "/addNewWrestler")
+    public ResponseEntity<?> addNewWrestlingBrand(@RequestBody Wrestler wrestler){
+        Wrestler savedWrestler = wrestlerSrv.addNewWrestler(wrestler);
+        return new ResponseEntity<>(wrestler, HttpStatus.CREATED);
     }
     @GetMapping(value = "/findAllWrestlersByParam")
     public ResponseEntity<String> findAllWrestlersByParams(
