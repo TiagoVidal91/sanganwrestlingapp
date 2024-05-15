@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/teiai-api/wrestler")
 public class WrestlerController {
@@ -21,7 +23,7 @@ public class WrestlerController {
     }
 
     @PostMapping(value = "/addNewWrestler")
-    public ResponseEntity<?> addNewWrestlingBrand(@RequestBody SingleWrestlerDTO wrestlerDTO){
+    public ResponseEntity<?> addNewWrestlingBrand(@RequestBody SingleWrestlerDTO wrestlerDTO) throws IOException {
         SingleWrestlerDTO savedWrestler = wrestlerSrv.addNewWrestler(wrestlerDTO);
         return new ResponseEntity<>(savedWrestler, HttpStatus.CREATED);
     }

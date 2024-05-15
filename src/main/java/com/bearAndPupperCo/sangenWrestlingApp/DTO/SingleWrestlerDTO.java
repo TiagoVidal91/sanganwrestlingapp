@@ -34,6 +34,10 @@ public class SingleWrestlerDTO {
 
     private List<String> finishers;
 
+    private String wrestlerPic;
+
+    private String wrestlerPicExtension;
+
     private String wrestlerPicPath;
 
     private Long wrestlingBrandId;
